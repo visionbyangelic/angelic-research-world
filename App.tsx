@@ -151,12 +151,12 @@ function Scene({ energy, awakened, chapter }: { energy: number; awakened: boolea
   </>;
 }
 const chapters = [
-  { n:"01", title:"Before the beginning", kicker:"THE EARLIEST UNIVERSE", copy:"No stars. No galaxies. No familiar horizon. We follow the universe back to an early, extraordinarily hot and dense state, where the physics we know reaches its limits." },
-  { n:"02", title:"Space begins to expand", kicker:"THE BIG BANG", copy:"The Big Bang was not a bomb going off inside an empty universe. Space itself expanded. As the universe grew and cooled, the conditions for everything that followed began to take shape." },
-  { n:"03", title:"Light crosses the darkness", kicker:"THE FIRST STRUCTURES", copy:"Particles formed, then the simplest atoms. Much later, gravity gathered matter into the first stars and galaxies. The dark became a place with structure, light and history." },
-  { n:"04", title:"Matter becomes worlds", kicker:"STARS · ELEMENTS · PLANETS", copy:"Inside stars, new elements were forged. Stellar lives and deaths scattered that material through space. Around later stars, some of it gathered into planets: worlds with very different possibilities." },
-  { n:"05", title:"Complexity finds a way", kicker:"LIFE · BRAINS · CONNECTION", copy:"On at least one world, chemistry became biology. Evolution produced nervous systems capable of sensing, learning and remembering. Matter began building models of the world around it." },
-  { n:"06", title:"The universe looks back", kicker:"THE HUMAN QUESTION", copy:"Now those nervous systems build mathematical models, artificial networks and questions about their own existence. This is the point where my research universe begins. Welcome to Angelic Research World." }
+  { n:"01", title:"And then, space began", kicker:"THE BIG BANG", copy:"Before stars, before planets, before anyone could look up, the universe was an extraordinarily hot, dense place. Then space itself began expanding. Not an explosion into darkness. The beginning of the darkness, the light, and everything that would ever have a place to exist." },
+  { n:"02", title:"Light found its way through", kicker:"THE FIRST LIGHT", copy:"The universe cooled. Particles formed, atoms followed, and light eventually travelled freely across space. Gravity gathered matter into the first stars and galaxies. The darkness was learning how to shine." },
+  { n:"03", title:"The stars made the ingredients", kicker:"STARS · ELEMENTS · WORLDS", copy:"Inside stars, simple elements were transformed into the ingredients of planets and living things. When stars died, they scattered those elements into space. Later, around new stars, worlds began to gather." },
+  { n:"04", title:"One world became alive", kicker:"THE LONG EXPERIMENT", copy:"On a small planet orbiting an ordinary star, chemistry became biology. Life changed, adapted, and diversified. Eventually, some organisms developed nervous systems: living networks that could sense, learn, remember, and dream." },
+  { n:"05", title:"Matter learned to wonder", kicker:"BRAINS · QUESTIONS · IDEAS", copy:"After billions of years, matter had become capable of asking where it came from. A brain could build models of the universe, imagine things that did not yet exist, and wonder about the strange experience of being alive." },
+  { n:"06", title:"A girl named Angelic", kicker:"THE VISION", copy:"And somewhere on that small blue world, a girl named Angelic looked at all these questions and decided she wanted to follow them. She wanted to understand brains, build with code, explore intelligence, and make difficult ideas feel alive. This is her little corner of the universe. Her research world. Her vision, still unfolding." }
 ];
 const projects = [
   { tag:"NEURAL MODELLING", title:"EM-NAV", subtitle:"Representation geometry & navigation", jargon:"Investigating how spiking neural networks can represent spatial information, and how the geometry of those representations relates to navigation.", plain:"Imagine a brain building an internal map of space. This project explores how networks of artificial neurons might create and use those maps.", status:"COMPLETED WORK", color:"violet", href:"https://github.com/visionbyangelic/em-nav-representation-geometry" },
@@ -166,7 +166,7 @@ const projects = [
   { tag:"NEURAL SIGNAL PROCESSING", title:"Neuro-Fatigue Prediction", subtitle:"Finding patterns in raw EEG", jargon:"A time-series modelling pipeline using raw EEG from consumer-grade hardware, signal processing and a 1D-CNN to investigate fatigue-related patterns.", plain:"Your brain produces electrical signals all the time. This project explores whether patterns in those signals can help identify fatigue, rather than relying only on how tired someone says they feel.", status:"PROJECT", color:"cyan", href:"https://github.com/visionbyangelic/Neuro-Fatigue-Prediction" }
 ];
 function App() {
-  const [chapter,setChapter] = useState(-1);
+  const [chapter,setChapter] = useState(0);
   const [entered,setEntered] = useState(false);
   const [energy,setEnergy] = useState(.4);
   const [sound,setSound] = useState(false);
@@ -194,13 +194,16 @@ function App() {
       osc.connect(gain); gain.connect(master.current!); osc.start(); osc.stop(ctx.currentTime+duration+.04);
     } catch {}
   };
-  useEffect(()=>{ setEnergy(chapter < 0 ? .25 : .35 + chapter*.2); },[chapter]);
+  useEffect(()=>{ setEnergy(.35 + chapter*.2); if(chapter===5) setEntered(true); },[chapter]);
+  useEffect(()=>{
+    const timer = window.setInterval(()=>setChapter(current=>Math.min(current+1,5)), 7600);
+    return ()=>window.clearInterval(timer);
+  },[]);
   useEffect(()=>()=>{ void audio.current?.close(); },[]);
   const next = () => {
     const n = Math.min(chapter+1,5); setChapter(n); playTone([82,110,164.8,220,277.2,329.6][n],1.1);
     if(n===5) setEntered(true);
   };
-  const start = () => { setChapter(0); playTone(110,1.2); };
   return <div className="atlas-shell">
     <div className="scene"><Canvas dpr={[1,1.5]} camera={{position:[0,0,10],fov:44}} gl={{antialias:true,alpha:false,powerPreference:"high-performance"}}><Suspense fallback={null}><Scene energy={energy} awakened={entered} chapter={chapter}/></Suspense></Canvas></div>
     <div className="grain"/>
@@ -212,17 +215,30 @@ function App() {
     <main id="top">
       <section className={"genesis "+(chapter>=0?"story-mode":"")} aria-label="The Genesis cinematic introduction">
         <div className="genesis-orbit orbit-one"/><div className="genesis-orbit orbit-two"/>
-        {chapter < 0 ? <div className="opening-copy">
-          <p className="eyebrow"><span className="pulse-dot"/> A COMPUTATIONAL NEUROSCIENTIST'S UNIVERSE</p>
-          <h1>Before there were<br/>stars, there was <em>expansion.</em></h1>
-          <p className="opening-lede">Watch space ignite, matter gather into stars, and the universe eventually become capable of asking questions about itself.</p>
-          <button className="primary-cta" onClick={start}><span className="play-icon">▶</span> WITNESS THE BEGINNING <span className="cta-arrow">↗</span></button>
-          <div className="scroll-hint"><span/> 13.8 BILLION YEARS OF COSMIC HISTORY</div>
-        </div> : <div className="chapter-copy" key={chapter}>
+        <div className="chapter-copy" key={chapter}>
           <p className="eyebrow"><span className="pulse-dot"/> CHAPTER {chapters[chapter].n} / {chapters[chapter].kicker}</p>
           <h2>{chapters[chapter].title}<span>.</span></h2><p>{chapters[chapter].copy}</p>
+          {chapter===5 && <div className="storybook-angelic" aria-label="An animated storybook illustration of Angelic">
+            <svg viewBox="0 0 180 210" role="img" aria-hidden="true">
+              <ellipse cx="91" cy="194" rx="42" ry="7" fill="#9f83ef" opacity=".18"/>
+              <path d="M55 90 Q43 32 91 28 Q140 30 127 93 L120 135 L60 135Z" fill="#21152d"/>
+              <ellipse cx="94" cy="83" rx="29" ry="34" fill="#b97859"/>
+              <path d="M65 79 Q63 43 94 39 Q127 42 125 79 Q111 61 96 58 Q82 74 65 79Z" fill="#24162f"/>
+              <path d="M76 86 Q82 81 87 86 M101 86 Q107 81 113 86" fill="none" stroke="#39202b" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M91 91 Q95 95 98 91" fill="none" stroke="#754238" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M85 104 Q95 111 105 103" fill="none" stroke="#7a3445" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M69 121 Q94 111 119 123 L135 183 L53 183Z" fill="#9b83e8"/>
+              <path d="M70 127 Q49 137 42 163" fill="none" stroke="#b97859" strokeWidth="11" strokeLinecap="round"/>
+              <path className="angelic-wave" d="M118 128 Q142 105 145 77" fill="none" stroke="#b97859" strokeWidth="11" strokeLinecap="round"/>
+              <circle cx="147" cy="72" r="7" fill="#b97859"/>
+              <path d="M68 183 L65 197 M119 183 L123 197" stroke="#b97859" strokeWidth="9" strokeLinecap="round"/>
+              <path d="M62 198 L48 201 M119 198 L135 201" stroke="#ddd1ff" strokeWidth="6" strokeLinecap="round"/>
+              <circle cx="147" cy="54" r="3" fill="#d7c6ff"/><path d="M147 39 L147 32 M159 54 L166 54 M135 54 L128 54" stroke="#d7c6ff" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+            <span>ANGELIC · THE BEGINNING OF A VISION</span>
+          </div>}
           <div className="chapter-controls"><div className="chapter-progress">{chapters.map((c,i)=><button key={c.n} aria-label={"Go to chapter "+c.n} className={i<=chapter?"filled":""} onClick={()=>{setChapter(i);if(i===5)setEntered(true)}}/>)}</div><button className="text-cta" onClick={()=>chapter===5?document.getElementById("atlas")?.scrollIntoView({behavior:"smooth"}):next()}>{chapter===5?"ENTER ANGELIC RESEARCH WORLD":"CONTINUE THE JOURNEY"} <span>↗</span></button></div>
-        </div>}
+        </div>
         <div className="scene-caption"><span>FIG. 001</span><span>FROM THE BIG BANG TO THE HUMAN MIND</span><span>0{Math.max(1,chapter+1)} / 06</span></div>
         <div className="vertical-note">13.8 BILLION YEARS · ONE CONTINUOUS STORY</div>
       </section>
