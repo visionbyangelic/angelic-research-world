@@ -151,8 +151,8 @@ function lif(){const c=panel.querySelector('#lc'),x=c.getContext('2d'),I=panel.q
 x.clearRect(0,0,440,120);const Y=q=>120-12-(q+85)/120*96;x.setLineDash([4,4]);x.strokeStyle='#ea408d';x.beginPath();x.moveTo(0,Y(-50));x.lineTo(440,Y(-50));x.stroke();x.setLineDash([]);x.strokeStyle='#8faeff';x.lineWidth=2;x.beginPath();d.forEach((q,i)=>i?x.lineTo(i*2,Y(q)):x.moveTo(0,Y(q)));x.stroke();raf=requestAnimationFrame(s)})()}
 
 const cap=$('#cap'),lines=[[6.8,'In the beginning, there was only silence.'],[9.2,'Then — one signal.'],[11.6,'It found something to connect to.'],[14.6,'']];let li=-1;
-function reveal(){window.location.replace('/portfolio')}
-if(!R||RM){setTimeout(()=>window.location.replace('/portfolio'),4200)}
+function reveal(){window.location.replace('/?portfolio=1')}
+if(!R||RM){setTimeout(()=>window.location.replace('/?portfolio=1'),4200)}
 
 if(R){
 R.setPixelRatio(Math.min(devicePixelRatio,2));R.setSize(innerWidth,innerHeight);document.body.prepend(R.domElement);
