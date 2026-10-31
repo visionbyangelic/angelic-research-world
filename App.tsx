@@ -160,44 +160,21 @@ const projects = [
 
 function ProjectArtwork({index}:{index:number}) {
   return <svg className={"project-visual visual-"+index} viewBox="0 0 640 300" role="img" aria-label={["Spatial neural representation map","Connectome synaptic network","Brain MRI scan and age-related morphology","Multimodal emotion signals","EEG neural signal waveform"][index]} preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <radialGradient id={"glow"+index}><stop stopColor="currentColor" stopOpacity=".48"/><stop offset="1" stopColor="currentColor" stopOpacity="0"/></radialGradient>
-      <linearGradient id={"line"+index} x1="0" y1="0" x2="1" y2="1"><stop stopColor="currentColor" stopOpacity=".9"/><stop offset="1" stopColor="currentColor" stopOpacity=".12"/></linearGradient>
-    </defs>
-    <rect width="640" height="300" fill="#080b16"/>
-    <circle cx="320" cy="150" r="170" fill={"url(#glow"+index+")"}/>
-    {index===0 && <g fill="none" stroke="currentColor">
-      {Array.from({length:9},(_,i)=><path key={i} d={"M"+(90+i*58)+" 28 V272"} opacity=".13"/>)}{Array.from({length:5},(_,i)=><path key={"h"+i} d={"M70 "+(55+i*48)+" H570"} opacity=".13"/>)}
-      {Array.from({length:7},(_,i)=><circle key={"c"+i} cx={130+i*62} cy={95+(i%2)*95} r={22+(i%3)*8} strokeWidth="2" opacity=".5"/>)}<path d="M120 150 L205 88 L292 150 L380 90 L470 155 L530 100" strokeWidth="2.5" strokeDasharray="5 8"/><circle cx="292" cy="150" r="9" fill="currentColor"/><circle cx="292" cy="150" r="25" opacity=".5"/>
-    </g>}
-    {index===1 && <g fill="none" stroke="url(#line1)" strokeWidth="2.4" strokeLinecap="round">
-      <path d="M320 260 C300 210 335 185 310 145 S260 95 230 40 M310 145 C360 110 365 78 390 35 M310 145 C260 140 215 160 165 115 M310 145 C365 160 410 190 465 145 M320 260 C365 220 400 245 445 270 M320 260 C270 220 220 245 180 270"/>
-      {Array.from({length:24},(_,i)=>{const x=90+(i*73)%470,y=40+(i*47)%220;return <circle key={i} cx={x} cy={y} r={3+(i%3)} fill="currentColor" stroke="none" opacity=".75"/>})}
-      <circle cx="310" cy="145" r="13" fill="currentColor" stroke="none"/><circle cx="310" cy="145" r="29" opacity=".3"/>
-    </g>}
-    {index===2 && <g fill="none" stroke="currentColor">
-      <path d="M320 42 C250 30 180 72 172 139 C160 211 218 253 320 260 C422 253 480 211 468 139 C460 72 390 30 320 42Z" strokeWidth="2.5" opacity=".8"/>
-      <path d="M320 55 C260 55 205 88 202 145 C198 201 246 233 320 242 C394 233 442 201 438 145 C435 88 380 55 320 55Z" opacity=".6"/>
-      <path d="M320 55 V245 M180 150 H460 M220 94 C270 120 270 180 220 210 M420 94 C370 120 370 180 420 210" opacity=".42"/>
-      <path d="M265 90 C235 115 255 140 280 150 C250 175 270 210 300 215 M375 90 C405 115 385 140 360 150 C390 175 370 210 340 215" strokeWidth="3"/>
-      <circle cx="320" cy="150" r="5" fill="currentColor"/>
-    </g>}
-    {index===3 && <g fill="none" stroke="currentColor">
-      <rect x="90" y="55" width="175" height="190" rx="18" strokeWidth="2" opacity=".7"/><path d="M150 126 C150 95 205 95 205 126 C205 150 190 160 177 174 C164 160 150 150 150 126Z" strokeWidth="2"/><path d="M148 205 Q177 180 206 205" strokeWidth="2"/>
-      <path d="M300 150 H340 M340 150 Q360 60 380 150 T420 150 T460 150 T500 150 T540 150" strokeWidth="3" strokeLinecap="round"/>
-      {Array.from({length:12},(_,i)=><path key={i} d={"M"+(300+i*25)+" "+(235-Math.sin(i*.8)*32)+" v"+(Math.sin(i*.8)*64)} strokeWidth="4" opacity=".65"/>)}<circle cx="420" cy="150" r="74" strokeDasharray="4 8" opacity=".4"/>
-    </g>}
-    {index===4 && <g fill="none" stroke="currentColor">
-      {Array.from({length:12},(_,i)=><path key={i} d={"M70 "+(45+i*19)+" H570"} opacity=".12"/>)}<path d={"M70 150 "+Array.from({length:60},(_,i)=>"L"+(70+i*8.4)+" "+(150-Math.sin(i*.72)*((i%7===0)?72:22)-Math.cos(i*.21)*18)).join(" ")} strokeWidth="3" strokeLinecap="round"/>
-      <path d="M70 150 H570" strokeDasharray="4 9" opacity=".4"/><path d="M130 55 V245 M320 55 V245 M510 55 V245" strokeDasharray="3 7" opacity=".25"/>
-      <circle cx="320" cy="150" r="92" strokeDasharray="2 10" opacity=".4"/>
-    </g>}
+    <defs><radialGradient id={"glow"+index}><stop stopColor="currentColor" stopOpacity=".48"/><stop offset="1" stopColor="currentColor" stopOpacity="0"/></radialGradient><linearGradient id={"line"+index} x1="0" y1="0" x2="1" y2="1"><stop stopColor="currentColor" stopOpacity=".9"/><stop offset="1" stopColor="currentColor" stopOpacity=".12"/></linearGradient></defs>
+    <rect width="640" height="300" fill="#080b16"/><circle cx="320" cy="150" r="170" fill={"url(#glow"+index+")"}/>
+    {index===0 && <g fill="none" stroke="currentColor">{Array.from({length:9},(_,i)=><path key={i} d={"M"+(90+i*58)+" 28 V272"} opacity=".13"/>)}{Array.from({length:5},(_,i)=><path key={"h"+i} d={"M70 "+(55+i*48)+" H570"} opacity=".13"/>)}{Array.from({length:7},(_,i)=><circle key={"c"+i} cx={130+i*62} cy={95+(i%2)*95} r={22+(i%3)*8} strokeWidth="2" opacity=".5"/>)}<path d="M120 150 L205 88 L292 150 L380 90 L470 155 L530 100" strokeWidth="2.5" strokeDasharray="5 8"/><circle cx="292" cy="150" r="9" fill="currentColor"/><circle cx="292" cy="150" r="25" opacity=".5"/></g>}
+    {index===1 && <g fill="none" stroke="url(#line1)" strokeWidth="2.4" strokeLinecap="round"><path d="M320 260 C300 210 335 185 310 145 S260 95 230 40 M310 145 C360 110 365 78 390 35 M310 145 C260 140 215 160 165 115 M310 145 C365 160 410 190 465 145 M320 260 C365 220 400 245 445 270 M320 260 C270 220 220 245 180 270"/>{Array.from({length:24},(_,i)=><circle key={i} cx={90+(i*73)%470} cy={40+(i*47)%220} r={3+(i%3)} fill="currentColor" stroke="none" opacity=".75"/>)}<circle cx="310" cy="145" r="13" fill="currentColor" stroke="none"/><circle cx="310" cy="145" r="29" opacity=".3"/></g>}
+    {index===2 && <g fill="none" stroke="currentColor"><path d="M320 42 C250 30 180 72 172 139 C160 211 218 253 320 260 C422 253 480 211 468 139 C460 72 390 30 320 42Z" strokeWidth="2.5" opacity=".8"/><path d="M320 55 C260 55 205 88 202 145 C198 201 246 233 320 242 C394 233 442 201 438 145 C435 88 380 55 320 55Z" opacity=".6"/><path d="M320 55 V245 M180 150 H460 M220 94 C270 120 270 180 220 210 M420 94 C370 120 370 180 420 210" opacity=".42"/><path d="M265 90 C235 115 255 140 280 150 C250 175 270 210 300 215 M375 90 C405 115 385 140 360 150 C390 175 370 210 340 215" strokeWidth="3"/><circle cx="320" cy="150" r="5" fill="currentColor"/></g>}
+    {index===3 && <g fill="none" stroke="currentColor"><rect x="90" y="55" width="175" height="190" rx="18" strokeWidth="2" opacity=".7"/><path d="M150 126 C150 95 205 95 205 126 C205 150 190 160 177 174 C164 160 150 150 150 126Z" strokeWidth="2"/><path d="M148 205 Q177 180 206 205" strokeWidth="2"/><path d="M300 150 H340 M340 150 Q360 60 380 150 T420 150 T460 150 T500 150 T540 150" strokeWidth="3" strokeLinecap="round"/>{Array.from({length:12},(_,i)=><path key={i} d={"M"+(300+i*25)+" "+(235-Math.sin(i*.8)*32)+" v"+(Math.sin(i*.8)*64)} strokeWidth="4" opacity=".65"/>)}<circle cx="420" cy="150" r="74" strokeDasharray="4 8" opacity=".4"/></g>}
+    {index===4 && <g fill="none" stroke="currentColor">{Array.from({length:12},(_,i)=><path key={i} d={"M70 "+(45+i*19)+" H570"} opacity=".12"/>)}<path d={"M70 150 "+Array.from({length:60},(_,i)=>"L"+(70+i*8.4)+" "+(150-Math.sin(i*.72)*((i%7===0)?72:22)-Math.cos(i*.21)*18)).join(" ")} strokeWidth="3" strokeLinecap="round"/><path d="M70 150 H570" strokeDasharray="4 9" opacity=".4"/><path d="M130 55 V245 M320 55 V245 M510 55 V245" strokeDasharray="3 7" opacity=".25"/><circle cx="320" cy="150" r="92" strokeDasharray="2 10" opacity=".4"/></g>}
   </svg>;
 }
 
 function App() {
   if (window.location.pathname === "/" || window.location.pathname === "/index.html") { window.location.replace("/genesis.html"); return null; }
-  const [chapter,setChapter] = useState(0);
+  const [plain,setPlain] = useState(true);
+  const [menu,setMenu] = useState(false);
+  return <div className="atlas-shell">
   const [entered,setEntered] = useState(false);
   const [energy,setEnergy] = useState(.4);
   const [sound,setSound] = useState(false);
@@ -242,26 +219,27 @@ function App() {
       <nav className={menu?"nav open":"nav"}><a href="#top" onClick={()=>setMenu(false)}>HOME</a><a href="#research" onClick={()=>setMenu(false)}>RESEARCH</a><a href="#about" onClick={()=>setMenu(false)}>THE HUMAN</a><a href="#signals" onClick={()=>setMenu(false)}>SIGNALS</a></nav>
       <div className="top-actions"><button className="menu-toggle" onClick={()=>setMenu(!menu)} aria-label="Toggle menu">☰</button></div>
     </header>
-    <main id="top">
-      <section className="portfolio-hero section-pad" id="top">
+    <main>      <section className="portfolio-hero section-pad" id="top">
         <div className="hero-orbit" aria-hidden="true"></div>
         <p className="eyebrow">COMPUTATIONAL NEUROSCIENCE · MACHINE LEARNING · BRAIN IMAGING</p>
         <h1>Angelic <em>Charles.</em></h1>
         <p className="hero-role">Researcher. Builder. Curious about the mind.</p>
         <div className="hero-rule"></div>
-        <div className="hero-about">
-          <div><div className="section-index">01 / ABOUT ME</div><h2>Curiosity is<br/>my <em>method.</em></h2></div>
-          <div className="hero-bio">
-            <p className="large-copy">I am a computational neuroscience researcher exploring the space between biological intelligence, computation and the ideas that shape how we understand the mind.</p>
-            <p>I work across brain imaging, machine learning, neural systems and data science. I am interested in how we can use computational models to ask better questions about the brain, behaviour and intelligence.</p>
-            <p>Outside research, I write about science, consciousness and philosophy, and founded <strong>Research As Stories</strong>, a broad science and knowledge publication built around making research engaging without losing its substance.</p>
-            <div className="interest-cloud"><span>COMPUTATIONAL NEUROSCIENCE</span><span>BRAIN IMAGING</span><span>AI & MACHINE LEARNING</span><span>CONSCIOUSNESS</span><span>PHILOSOPHY</span></div>
-            <div className="about-links"><a href="https://github.com/visionbyangelic" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="https://visionbyangelic.substack.com/" target="_blank" rel="noreferrer">PERSONAL WRITING ↗</a><a href="https://researchasstories.substack.com/" target="_blank" rel="noreferrer">RESEARCH AS STORIES ↗</a></div>
-          </div>
-        </div>
       </section>
+      <section className="about section-pad" id="about">
+        <div className="section-index">03 / THE HUMAN BEHIND THE HYPOTHESES</div><div className="about-grid"><div><p className="eyebrow">BEYOND THE LAB</p><h2>Curiosity is<br/>my <em>method.</em></h2><p className="about-lede">Science is what I study. Wonder is how I move through it.</p></div><div className="about-copy"><p>I work across computational neuroscience, brain imaging, machine learning and data science. I am drawn to projects that let different disciplines speak to one another, and I am still discovering which questions I want to spend a lifetime pursuing.</p><p>Outside technical work, I write about science, consciousness, philosophy and the strange edges of ordinary experience. I founded <strong>Research As Stories</strong>, a broad science and knowledge publication built around making research engaging without losing its substance.</p><div className="interest-cloud"><span>CONSCIOUSNESS</span><span>COMPLEX SYSTEMS</span><span>PHILOSOPHY</span><span>ASTRONOMY</span><span>AI & LEARNING</span><span>THE UNKNOWN</span></div><div className="about-links"><a href="https://visionbyangelic.substack.com/" target="_blank" rel="noreferrer">PERSONAL SUBSTACK ↗</a><a href="https://researchasstories.substack.com/" target="_blank" rel="noreferrer">RESEARCH AS STORIES ↗</a></div></div></div>
+      </section>
+      <section className="research section-pad" id="research">
+        <div className="section-heading"><div><div className="section-index">02 / RESEARCH WORLDS</div><p className="eyebrow">FRAGMENTS OF AN ONGOING INQUIRY</p><h2>Ideas under<br/><em>investigation.</em></h2></div><p className="heading-aside">Different questions. Different methods. One curious mind. These projects do not belong to a single corner of neuroscience, and neither does this atlas.</p></div>
+        <div className="project-grid">{projects.map((p,i)=><article className={"project-card "+p.color} key={p.title}>
+          <div className={"project-art art-"+i}><ProjectArtwork index={i}/><span className="art-number">0{i+1}</span><span className="art-label">{p.tag}</span></div>
+          <div className="project-body"><div className="project-meta"><span>{p.status}</span><span>FIELD NOTE / 0{i+1}</span></div><h3>{p.title}</h3><p className="project-subtitle">{p.subtitle}</p><div className="explanation"><div className="explanation-head"><span>{plain?"IN PLAIN LANGUAGE":"TECHNICAL VIEW"}</span><button onClick={()=>setPlain(!plain)}>{plain?"SHOW JARGON":"SHOW PLAIN ENGLISH"} ↗</button></div><p>{plain?p.plain:p.jargon}</p></div><a className="project-link" href={p.href} target="_blank" rel="noreferrer">EXPLORE PROJECT <span>↗</span></a></div>
+        </article>)}</div>
+        <p className="project-footnote">Project descriptions distinguish exploratory work from established findings. This portfolio is a record of inquiry, not a claim of publication.</p>
+      </section>
+      <section className="interlude"><div className="interlude-art"><div className="interlude-ring"/><div className="interlude-ring r2"/><span>?</span></div><div><p className="eyebrow">A QUESTION BETWEEN WORLDS</p><h2>What does it mean<br/>to <em>understand</em> a brain?</h2><p>Is a model an explanation, a useful approximation, or a new way to ask the question? I am interested in the space where computation meets uncertainty.</p></div></section>
       <section className="signals section-pad" id="signals"><div className="section-index">04 / OUTGOING SIGNALS</div><div className="signals-grid"><div><p className="eyebrow">FIND ME IN THE NETWORK</p><h2>Follow the<br/><em>curiosity.</em></h2></div><div className="signal-links"><a href="https://github.com/visionbyangelic" target="_blank" rel="noreferrer"><span>01</span> GITHUB <b>↗</b></a><a href="https://visionbyangelic.substack.com/" target="_blank" rel="noreferrer"><span>02</span> PERSONAL WRITING <b>↗</b></a><a href="https://researchasstories.substack.com/" target="_blank" rel="noreferrer"><span>03</span> RESEARCH AS STORIES <b>↗</b></a><a href="https://hashnode.com/@ZQQ" target="_blank" rel="noreferrer"><span>04</span> TECHNICAL WRITING <b>↗</b></a></div></div></section>
-    </main>
+    </main>ain>
     <footer><a className="brand" href="#top"><span className="brand-mark">✳</span><span>ANGELIC CHARLES <small>ANGELIC RESEARCH WORLD / 001</small></span></a><span>BUILT FROM QUESTIONS, NOT CONCLUSIONS.</span><a href="#top">BACK TO THE BEGINNING ↑</a></footer>
   </div>;
 }
