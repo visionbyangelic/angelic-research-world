@@ -42,3 +42,13 @@
 @keyframes storybook-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes angelic-wave{from{transform:rotate(-10deg)}to{transform:rotate(15deg)}}
 @media(max-width:650px){.storybook-angelic{gap:10px;margin-top:6px}.storybook-angelic svg{width:88px;height:106px}.storybook-angelic>span{font-size:7px}.chapter-copy{max-width:100%}}
+
+/* The opening is a visual sequence, not an explainer or text chapter. */
+.cinematic-intro{height:calc(100svh - 82px);min-height:620px;padding:0;display:block}
+.cinematic-intro .genesis-orbit{left:50%;top:50%;width:min(76vw,900px)}
+.cinematic-intro .orbit-two{width:min(58vw,680px)}
+.visual-progress{position:absolute;left:50%;bottom:35px;transform:translateX(-50%);width:112px;height:1px;background:rgba(207,198,255,.18);overflow:hidden}
+.visual-progress span{display:block;width:100%;height:100%;background:#b7a4ff;transform-origin:left;transition:transform 1s linear;box-shadow:0 0 12px #a58bff}
+.intro-enter{position:absolute;right:5.5vw;bottom:22px;width:38px;height:38px;border:1px solid rgba(207,198,255,.24);border-radius:50%;background:rgba(8,8,17,.45);color:#c7b8ff;font-size:20px;cursor:pointer;transition:background .25s,transform .25s}
+.intro-enter:hover{background:rgba(165,139,255,.18);transform:translateY(3px)}
+@media(max-width:700px){.cinematic-intro{min-height:560px}.cinematic-intro .genesis-orbit{width:110vw}.cinematic-intro .orbit-two{width:84vw}.intro-enter{right:22px;bottom:18px}}
