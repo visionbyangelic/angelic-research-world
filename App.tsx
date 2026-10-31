@@ -92,7 +92,7 @@ function CosmicGenesis({ chapter }: { chapter: number }) {
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
     const phase = THREE.MathUtils.clamp((chapter + 1) / 6, 0, 1);
-    const expansion = chapter < 0 ? .018 : .08 + phase * 4.2;
+    const expansion = chapter < 0 ? .58 + Math.sin(t * .32) * .035 : .08 + phase * 4.2;
     const attr = geometry.attributes.position as THREE.BufferAttribute;
     const arr = attr.array as Float32Array;
     for (let i = 0; i < distances.length; i++) {
@@ -109,15 +109,15 @@ function CosmicGenesis({ chapter }: { chapter: number }) {
     }
     if (coreRef.current) {
       const pulse = 1 + Math.sin(t * 2.4) * .08;
-      const scale = chapter < 0 ? .12 * pulse : Math.max(.025, .16 * (1 - phase * 1.3)) * pulse;
+      const scale = chapter < 0 ? .42 * pulse : Math.max(.025, .16 * (1 - phase * 1.3)) * pulse;
       coreRef.current.scale.setScalar(scale);
       coreRef.current.visible = chapter < 4;
     }
     if (ringRef.current) {
-      const ringScale = chapter < 1 ? .001 : .4 + phase * 7.5;
+      const ringScale = chapter < 0 ? 1.15 + Math.sin(t * .55) * .12 : .4 + phase * 7.5;
       ringRef.current.scale.setScalar(ringScale);
-      (ringRef.current.material as THREE.MeshBasicMaterial).opacity = chapter < 1 ? 0 : Math.max(0, .42 - phase * .35);
-      ringRef.current.visible = chapter >= 1 && chapter < 5;
+      (ringRef.current.material as THREE.MeshBasicMaterial).opacity = chapter < 0 ? .62 : Math.max(0, .42 - phase * .35);
+      ringRef.current.visible = chapter < 5;
     }
   });
   return <>
@@ -132,7 +132,7 @@ function CosmicGenesis({ chapter }: { chapter: number }) {
       <torusGeometry args={[1, .012, 8, 180]} />
       <meshBasicMaterial color="#b6a2ff" transparent opacity={0} blending={THREE.AdditiveBlending} />
     </mesh>
-    <pointLight position={[0, 0, 0]} color="#a88cff" intensity={chapter < 1 ? 8 : 2.2} distance={18} />
+    <pointLight position={[0, 0, 0]} color="#a88cff" intensity={chapter < 1 ? 18 : 2.2} distance={18} />
   </>;
 }
 
@@ -215,7 +215,7 @@ function App() {
         {chapter < 0 ? <div className="opening-copy">
           <p className="eyebrow"><span className="pulse-dot"/> A COMPUTATIONAL NEUROSCIENTIST'S UNIVERSE</p>
           <h1>Before there were<br/>stars, there was <em>expansion.</em></h1>
-          <p className="opening-lede">A journey from the birth of the universe to the emergence of minds, machines and the questions that make us human.</p>
+          <p className="opening-lede">Watch space ignite, matter gather into stars, and the universe eventually become capable of asking questions about itself.</p>
           <button className="primary-cta" onClick={start}><span className="play-icon">▶</span> WITNESS THE BEGINNING <span className="cta-arrow">↗</span></button>
           <div className="scroll-hint"><span/> 13.8 BILLION YEARS OF COSMIC HISTORY</div>
         </div> : <div className="chapter-copy" key={chapter}>
