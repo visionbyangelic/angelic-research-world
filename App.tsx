@@ -203,7 +203,7 @@ function App() {
       </section>
       <section className="interlude"><div className="interlude-art"><div className="interlude-ring"/><div className="interlude-ring r2"/><span>?</span></div><div><p className="eyebrow">A QUESTION BETWEEN WORLDS</p><h2>What does it mean<br/>to <em>understand</em> a brain?</h2><p>Is a model an explanation, a useful approximation, or a new way to ask the question? I am interested in the space where computation meets uncertainty.</p></div></section>
       <section className="signals section-pad" id="signals"><div className="section-index">04 / OUTGOING SIGNALS</div><div className="signals-grid"><div><p className="eyebrow">FIND ME IN THE NETWORK</p><h2>Follow the<br/><em>curiosity.</em></h2></div><div className="signal-links"><a href="https://github.com/visionbyangelic" target="_blank" rel="noreferrer"><span>01</span> GITHUB <b>↗</b></a><a href="https://visionbyangelic.substack.com/" target="_blank" rel="noreferrer"><span>02</span> PERSONAL WRITING <b>↗</b></a><a href="https://researchasstories.substack.com/" target="_blank" rel="noreferrer"><span>03</span> RESEARCH AS STORIES <b>↗</b></a><a href="https://hashnode.com/@ZQQ" target="_blank" rel="noreferrer"><span>04</span> TECHNICAL WRITING <b>↗</b></a></div></div></section>
-    </main>ain>
+    </main>
     <footer><a className="brand" href="#top"><span className="brand-mark">✳</span><span>ANGELIC CHARLES <small>ANGELIC RESEARCH WORLD / 001</small></span></a><span>BUILT FROM QUESTIONS, NOT CONCLUSIONS.</span><a href="#top">BACK TO THE BEGINNING ↑</a></footer>
   </div>;
 }
