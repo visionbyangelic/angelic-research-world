@@ -221,7 +221,7 @@ function App() {
         </div> : <div className="chapter-copy" key={chapter}>
           <p className="eyebrow"><span className="pulse-dot"/> CHAPTER {chapters[chapter].n} / {chapters[chapter].kicker}</p>
           <h2>{chapters[chapter].title}<span>.</span></h2><p>{chapters[chapter].copy}</p>
-          <div className="chapter-controls"><div className="chapter-progress">{chapters.map((c,i)=><button key={c.n} aria-label={"Go to movement "+c.n} className={i<=chapter?"filled":""} onClick={()=>setChapter(i)}/>)}</div><button className="text-cta" onClick={()=>chapter===5?document.getElementById("atlas")?.scrollIntoView({behavior:"smooth"}):next()}>{chapter===5?"ENTER ANGELIC RESEARCH WORLD":"CONTINUE THE JOURNEY"} <span>↗</span></button></div>
+          <div className="chapter-controls"><div className="chapter-progress">{chapters.map((c,i)=><button key={c.n} aria-label={"Go to chapter "+c.n} className={i<=chapter?"filled":""} onClick={()=>{setChapter(i);if(i===5)setEntered(true)}}/>)}</div><button className="text-cta" onClick={()=>chapter===5?document.getElementById("atlas")?.scrollIntoView({behavior:"smooth"}):next()}>{chapter===5?"ENTER ANGELIC RESEARCH WORLD":"CONTINUE THE JOURNEY"} <span>↗</span></button></div>
         </div>}
         <div className="scene-caption"><span>FIG. 001</span><span>FROM THE BIG BANG TO THE HUMAN MIND</span><span>0{Math.max(1,chapter+1)} / 06</span></div>
         <div className="vertical-note">13.8 BILLION YEARS · ONE CONTINUOUS STORY</div>
