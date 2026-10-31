@@ -1,24 +1,34 @@
-# Angelic's Research World
+# Angelic Research World — Angelic Charles
 
-A private portfolio website for Angelic Charles, **Computational Neuroscientist**.
+An immersive personal research world for Angelic Charles, computational neuroscientist.
 
-## Website
+## Experience
 
-The current deployable version is a responsive, self-contained HTML site in `index.html`. It includes:
-- Animated neural-network hero background
-- Research project overview with technical summaries
-- Interactive-lab concept section
-- Personal writing and Research As Stories links
-- Responsive layout, reduced-motion support and basic SEO metadata
+The Genesis is a four-movement cinematic opening: the void, the first signal, the awakening network, and entry into the Atlas. The rest of the site connects research projects, technical and plain-language explanations, writing, interests, and professional links.
+
+## Stack
+
+- React + TypeScript + Vite
+- Three.js, React Three Fiber and Drei
+- Framer Motion dependency retained from the starter
+- Custom responsive CSS
 
 ## Run locally
 
-Open `index.html` in a browser, or serve the repository with any static web server.
+```bash
+npm install
+npm run dev
+```
 
-## Deploy
+## Build
 
-This repository can be imported into Vercel as a static site. No build command is required; set the output directory to the repository root.
+```bash
+npm run build
+```
 
 ## Notes
 
-Project descriptions and statuses are working copy and should be reviewed before public launch. In particular, distinguish ongoing work, completed projects, accepted presentations and preprints from peer-reviewed publications. The repository is private by design.
+- Ambient sound is opt-in and generated locally with Web Audio.
+- The scene respects `prefers-reduced-motion` and uses a lightweight fallback style.
+- Replace project statuses and descriptions as work evolves; no peer-reviewed publication is claimed.
+- Add the final custom domain to canonical URLs and sitemap when selected.
