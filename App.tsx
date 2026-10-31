@@ -61,24 +61,102 @@ function NeuralNetwork({ energy, awakened }: { energy: number; awakened: boolean
     </mesh>
   </group>;
 }
-function Scene({ energy, awakened }: { energy: number; awakened: boolean }) {
+
+function CosmicGenesis({ chapter }: { chapter: number }) {
+  const pointsRef = useRef<THREE.Points>(null);
+  const coreRef = useRef<THREE.Mesh>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
+  const { geometry, directions, distances, colors } = useMemo(() => {
+    const count = 3200;
+    const positions = new Float32Array(count * 3);
+    const dirs = new Float32Array(count * 3);
+    const dist = new Float32Array(count);
+    const cols = new Float32Array(count * 3);
+    const palette = [new THREE.Color("#fff4dc"), new THREE.Color("#a8b8ff"), new THREE.Color("#c5a0ff"), new THREE.Color("#70d9e6")];
+    for (let i = 0; i < count; i++) {
+      const z = Math.random() * 2 - 1;
+      const a = Math.random() * Math.PI * 2;
+      const r = Math.sqrt(1 - z * z);
+      dirs[i * 3] = r * Math.cos(a);
+      dirs[i * 3 + 1] = z;
+      dirs[i * 3 + 2] = r * Math.sin(a);
+      dist[i] = 2.5 + Math.pow(Math.random(), .65) * 24;
+      const c = palette[Math.floor(Math.random() * palette.length)];
+      cols[i * 3] = c.r; cols[i * 3 + 1] = c.g; cols[i * 3 + 2] = c.b;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    g.setAttribute("color", new THREE.BufferAttribute(cols, 3));
+    return { geometry: g, directions: dirs, distances: dist, colors: cols };
+  }, []);
+  useFrame(({ clock }) => {
+    const t = clock.elapsedTime;
+    const phase = THREE.MathUtils.clamp((chapter + 1) / 6, 0, 1);
+    const expansion = chapter < 0 ? .018 : .08 + phase * 4.2;
+    const attr = geometry.attributes.position as THREE.BufferAttribute;
+    const arr = attr.array as Float32Array;
+    for (let i = 0; i < distances.length; i++) {
+      const drift = 1 + Math.sin(t * .42 + i * .017) * .012;
+      const radius = distances[i] * expansion * drift;
+      arr[i * 3] = directions[i * 3] * radius;
+      arr[i * 3 + 1] = directions[i * 3 + 1] * radius;
+      arr[i * 3 + 2] = directions[i * 3 + 2] * radius;
+    }
+    attr.needsUpdate = true;
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y = t * .012;
+      pointsRef.current.rotation.z = Math.sin(t * .08) * .025;
+    }
+    if (coreRef.current) {
+      const pulse = 1 + Math.sin(t * 2.4) * .08;
+      const scale = chapter < 0 ? .12 * pulse : Math.max(.025, .16 * (1 - phase * 1.3)) * pulse;
+      coreRef.current.scale.setScalar(scale);
+      coreRef.current.visible = chapter < 4;
+    }
+    if (ringRef.current) {
+      const ringScale = chapter < 1 ? .001 : .4 + phase * 7.5;
+      ringRef.current.scale.setScalar(ringScale);
+      (ringRef.current.material as THREE.MeshBasicMaterial).opacity = chapter < 1 ? 0 : Math.max(0, .42 - phase * .35);
+      ringRef.current.visible = chapter >= 1 && chapter < 5;
+    }
+  });
+  return <>
+    <points ref={pointsRef} geometry={geometry}>
+      <pointsMaterial vertexColors size={.045} sizeAttenuation transparent opacity={.94} depthWrite={false} blending={THREE.AdditiveBlending} />
+    </points>
+    <mesh ref={coreRef}>
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshBasicMaterial color="#fff3d7" />
+    </mesh>
+    <mesh ref={ringRef} rotation={[Math.PI / 2.4, 0, 0]}>
+      <torusGeometry args={[1, .012, 8, 180]} />
+      <meshBasicMaterial color="#b6a2ff" transparent opacity={0} blending={THREE.AdditiveBlending} />
+    </mesh>
+    <pointLight position={[0, 0, 0]} color="#a88cff" intensity={chapter < 1 ? 8 : 2.2} distance={18} />
+  </>;
+}
+
+function Scene({ energy, awakened, chapter }: { energy: number; awakened: boolean; chapter: number }) {
   return <>
     <color attach="background" args={["#05050b"]}/>
     <fog attach="fog" args={["#05050b", 8, 25]}/>
     <ambientLight intensity={.5}/>
     <pointLight position={[4,3,5]} color="#8d69ff" intensity={3}/>
     <pointLight position={[-4,-2,-4]} color="#42c9db" intensity={2}/>
-    <Stars radius={90} depth={45} count={2500} factor={3} saturation={.25} fade speed={.3}/>
-    <Float speed={.55} rotationIntensity={.12} floatIntensity={.24}>
+    <Stars radius={100} depth={55} count={3200} factor={3.4} saturation={.35} fade speed={.22}/>
+    <CosmicGenesis chapter={chapter}/>
+    {chapter >= 4 && <Float speed={.42} rotationIntensity={.16} floatIntensity={.28}>
       <NeuralNetwork energy={energy} awakened={awakened}/>
-    </Float>
+    </Float>}
   </>;
 }
 const chapters = [
-  { n:"01", title:"Before the signal", kicker:"THE VOID", copy:"Before a thought, before a memory, before the first question, there is only possibility. A quiet universe waiting for something to happen." },
-  { n:"02", title:"A signal finds a path", kicker:"THE FIRST FIRING", copy:"One event changes the silence. A signal travels, meets another, and leaves a trace. A connection becomes a possibility." },
-  { n:"03", title:"The network awakens", kicker:"CONNECTION", copy:"Paths multiply. Separate points begin to influence one another. Complexity is not placed into the system; it emerges from relationships." },
-  { n:"04", title:"A world of questions", kicker:"THE ATLAS", copy:"The network opens into a landscape of research, computation, ideas and experiments. This is where the exploration begins." }
+  { n:"01", title:"Before the beginning", kicker:"THE EARLIEST UNIVERSE", copy:"No stars. No galaxies. No familiar horizon. We follow the universe back to an early, extraordinarily hot and dense state, where the physics we know reaches its limits." },
+  { n:"02", title:"Space begins to expand", kicker:"THE BIG BANG", copy:"The Big Bang was not a bomb going off inside an empty universe. Space itself expanded. As the universe grew and cooled, the conditions for everything that followed began to take shape." },
+  { n:"03", title:"Light crosses the darkness", kicker:"THE FIRST STRUCTURES", copy:"Particles formed, then the simplest atoms. Much later, gravity gathered matter into the first stars and galaxies. The dark became a place with structure, light and history." },
+  { n:"04", title:"Matter becomes worlds", kicker:"STARS · ELEMENTS · PLANETS", copy:"Inside stars, new elements were forged. Stellar lives and deaths scattered that material through space. Around later stars, some of it gathered into planets: worlds with very different possibilities." },
+  { n:"05", title:"Complexity finds a way", kicker:"LIFE · BRAINS · CONNECTION", copy:"On at least one world, chemistry became biology. Evolution produced nervous systems capable of sensing, learning and remembering. Matter began building models of the world around it." },
+  { n:"06", title:"The universe looks back", kicker:"THE HUMAN QUESTION", copy:"Now those nervous systems build mathematical models, artificial networks and questions about their own existence. This is the point where my research universe begins. Welcome to Angelic Research World." }
 ];
 const projects = [
   { tag:"NEURAL MODELLING", title:"EM-NAV", subtitle:"Representation geometry & navigation", jargon:"Investigating how spiking neural networks can represent spatial information, and how the geometry of those representations relates to navigation.", plain:"Imagine a brain building an internal map of space. This project explores how networks of artificial neurons might create and use those maps.", status:"COMPLETED WORK", color:"violet", href:"https://github.com/visionbyangelic/em-nav-representation-geometry" },
@@ -119,12 +197,12 @@ function App() {
   useEffect(()=>{ setEnergy(chapter < 0 ? .25 : .35 + chapter*.2); },[chapter]);
   useEffect(()=>()=>{ void audio.current?.close(); },[]);
   const next = () => {
-    const n = Math.min(chapter+1,3); setChapter(n); playTone([110,164.8,220,329.6][n],1.1);
-    if(n===3) setEntered(true);
+    const n = Math.min(chapter+1,5); setChapter(n); playTone([82,110,164.8,220,277.2,329.6][n],1.1);
+    if(n===5) setEntered(true);
   };
   const start = () => { setChapter(0); playTone(110,1.2); };
   return <div className="atlas-shell">
-    <div className="scene"><Canvas dpr={[1,1.5]} camera={{position:[0,0,10],fov:44}} gl={{antialias:true,alpha:false,powerPreference:"high-performance"}}><Suspense fallback={null}><Scene energy={energy} awakened={entered}/></Suspense></Canvas></div>
+    <div className="scene"><Canvas dpr={[1,1.5]} camera={{position:[0,0,10],fov:44}} gl={{antialias:true,alpha:false,powerPreference:"high-performance"}}><Suspense fallback={null}><Scene energy={energy} awakened={entered} chapter={chapter}/></Suspense></Canvas></div>
     <div className="grain"/>
     <header className="topbar">
       <a className="brand" href="#top" aria-label="Angelic Research World home"><span className="brand-mark">✳</span><span>ANGELIC CHARLES <small>ANGELIC RESEARCH WORLD / 001</small></span></a>
@@ -136,17 +214,17 @@ function App() {
         <div className="genesis-orbit orbit-one"/><div className="genesis-orbit orbit-two"/>
         {chapter < 0 ? <div className="opening-copy">
           <p className="eyebrow"><span className="pulse-dot"/> A COMPUTATIONAL NEUROSCIENTIST'S UNIVERSE</p>
-          <h1>Every universe<br/>begins with <em>a signal.</em></h1>
-          <p className="opening-lede">A journey through the architectures of the brain, the mathematics of learning, and the questions that make us human.</p>
-          <button className="primary-cta" onClick={start}><span className="play-icon">▶</span> BEGIN THE GENESIS <span className="cta-arrow">↗</span></button>
-          <div className="scroll-hint"><span/> AN EXPERIENCE IN FOUR MOVEMENTS</div>
+          <h1>Before there were<br/>stars, there was <em>expansion.</em></h1>
+          <p className="opening-lede">A journey from the birth of the universe to the emergence of minds, machines and the questions that make us human.</p>
+          <button className="primary-cta" onClick={start}><span className="play-icon">▶</span> WITNESS THE BEGINNING <span className="cta-arrow">↗</span></button>
+          <div className="scroll-hint"><span/> 13.8 BILLION YEARS OF COSMIC HISTORY</div>
         </div> : <div className="chapter-copy" key={chapter}>
-          <p className="eyebrow"><span className="pulse-dot"/> MOVEMENT {chapters[chapter].n} / {chapters[chapter].kicker}</p>
+          <p className="eyebrow"><span className="pulse-dot"/> CHAPTER {chapters[chapter].n} / {chapters[chapter].kicker}</p>
           <h2>{chapters[chapter].title}<span>.</span></h2><p>{chapters[chapter].copy}</p>
-          <div className="chapter-controls"><div className="chapter-progress">{chapters.map((c,i)=><button key={c.n} aria-label={"Go to movement "+c.n} className={i<=chapter?"filled":""} onClick={()=>setChapter(i)}/>)}</div><button className="text-cta" onClick={()=>chapter===3?document.getElementById("atlas")?.scrollIntoView({behavior:"smooth"}):next()}>{chapter===3?"ENTER THE ATLAS":"CONTINUE THE STORY"} <span>↗</span></button></div>
+          <div className="chapter-controls"><div className="chapter-progress">{chapters.map((c,i)=><button key={c.n} aria-label={"Go to movement "+c.n} className={i<=chapter?"filled":""} onClick={()=>setChapter(i)}/>)}</div><button className="text-cta" onClick={()=>chapter===5?document.getElementById("atlas")?.scrollIntoView({behavior:"smooth"}):next()}>{chapter===5?"ENTER ANGELIC RESEARCH WORLD":"CONTINUE THE JOURNEY"} <span>↗</span></button></div>
         </div>}
-        <div className="scene-caption"><span>FIG. 001</span><span>AN EMERGENCE OF CONNECTION</span><span>0{Math.max(1,chapter+1)} / 04</span></div>
-        <div className="vertical-note">FROM SIGNAL TO SYSTEM — FROM SYSTEM TO QUESTION</div>
+        <div className="scene-caption"><span>FIG. 001</span><span>FROM THE BIG BANG TO THE HUMAN MIND</span><span>0{Math.max(1,chapter+1)} / 06</span></div>
+        <div className="vertical-note">13.8 BILLION YEARS · ONE CONTINUOUS STORY</div>
       </section>
       <section className="manifesto section-pad" id="atlas">
         <div className="section-index">01 / THE ATLAS</div><div className="manifesto-grid"><div><p className="eyebrow">A PERSONAL RESEARCH WORLD</p><h2>Not one answer.<br/><em>A thousand ways in.</em></h2></div><div className="manifesto-text"><p className="large-copy">I am Angelic Charles, a <strong>computational neuroscientist</strong> exploring the space between biological intelligence, computation and the ideas that shape how we understand the mind.</p><p>This atlas is a living map of my work and curiosity. It moves across research, machine learning, brain imaging, neural systems, science communication and the questions I haven't learned how to ask yet.</p><a className="underlink" href="#research">EXPLORE THE RESEARCH <span>↗</span></a></div></div>
