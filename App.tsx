@@ -92,7 +92,7 @@ function CosmicGenesis({ chapter }: { chapter: number }) {
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
     const phase = THREE.MathUtils.clamp((chapter + 1) / 6, 0, 1);
-    const expansion = chapter < 0 ? .58 + Math.sin(t * .32) * .035 : .08 + phase * 4.2;
+    const expansion = chapter === 0 ? .12 + Math.min(t * .38, 2.65) : 2.8 + (chapter - 1) * .62;
     const attr = geometry.attributes.position as THREE.BufferAttribute;
     const arr = attr.array as Float32Array;
     for (let i = 0; i < distances.length; i++) {
@@ -109,14 +109,14 @@ function CosmicGenesis({ chapter }: { chapter: number }) {
     }
     if (coreRef.current) {
       const pulse = 1 + Math.sin(t * 2.4) * .08;
-      const scale = chapter < 0 ? .42 * pulse : Math.max(.025, .16 * (1 - phase * 1.3)) * pulse;
+      const scale = chapter === 0 ? Math.max(.08, .72 - Math.min(t, 8) * .08) * pulse : Math.max(.025, .16 * (1 - phase * 1.3)) * pulse;
       coreRef.current.scale.setScalar(scale);
       coreRef.current.visible = chapter < 4;
     }
     if (ringRef.current) {
-      const ringScale = chapter < 0 ? 1.15 + Math.sin(t * .55) * .12 : .4 + phase * 7.5;
+      const ringScale = chapter === 0 ? 1.15 + Math.min(t * .8, 5.5) : .4 + phase * 7.5;
       ringRef.current.scale.setScalar(ringScale);
-      (ringRef.current.material as THREE.MeshBasicMaterial).opacity = chapter < 0 ? .62 : Math.max(0, .42 - phase * .35);
+      (ringRef.current.material as THREE.MeshBasicMaterial).opacity = chapter === 0 ? .82 : Math.max(0, .42 - phase * .35);
       ringRef.current.visible = chapter < 5;
     }
   });
