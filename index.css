@@ -18,3 +18,13 @@
 @keyframes cosmic-breathe{from{opacity:.45;transform:scale(1)}to{opacity:1;transform:scale(1.08)}}
 @keyframes chapter-arrive{from{opacity:0;transform:translate3d(0,24px,0);filter:blur(7px)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
 @media(max-width:650px){.genesis:before{background:radial-gradient(ellipse at 72% 42%,rgba(119,91,210,.17),transparent 48%),linear-gradient(90deg,rgba(5,5,11,.18),transparent)}.chapter-progress button.filled{width:26px}}
+
+/* GENESIS: make the first instant feel like an event, not an empty loading state. */
+.scene::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 66% 46%,rgba(183,151,255,.19) 0%,rgba(112,91,191,.10) 19%,transparent 48%),radial-gradient(ellipse at 50% 50%,transparent 38%,rgba(3,3,9,.48) 100%);animation:cosmic-bloom 5s ease-in-out infinite alternate}
+.genesis:not(.story-mode) .genesis-orbit{border-color:rgba(196,171,255,.2);box-shadow:0 0 70px rgba(142,111,255,.08),inset 0 0 70px rgba(142,111,255,.035)}
+.genesis:not(.story-mode) .orbit-one{animation:orbit-breathe 4.5s ease-in-out infinite}
+.genesis:not(.story-mode) .opening-copy h1{text-shadow:0 0 42px rgba(177,151,255,.13)}
+.genesis:not(.story-mode) .primary-cta{animation:cta-arrive 1.2s .35s both}
+@keyframes cosmic-bloom{from{opacity:.65;transform:scale(.98)}to{opacity:1;transform:scale(1.035)}}
+@keyframes orbit-breathe{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(.96)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.035)}}
+@keyframes cta-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
