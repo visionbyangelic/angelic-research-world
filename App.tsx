@@ -150,14 +150,6 @@ function Scene({ energy, awakened, chapter }: { energy: number; awakened: boolea
     </Float>}
   </>;
 }
-const chapters = [
-  { n:"01", title:"And then, space began", kicker:"THE BIG BANG", copy:"Before stars, before planets, before anyone could look up, the universe was an extraordinarily hot, dense place. Then space itself began expanding. Not an explosion into darkness. The beginning of the darkness, the light, and everything that would ever have a place to exist." },
-  { n:"02", title:"Light found its way through", kicker:"THE FIRST LIGHT", copy:"The universe cooled. Particles formed, atoms followed, and light eventually travelled freely across space. Gravity gathered matter into the first stars and galaxies. The darkness was learning how to shine." },
-  { n:"03", title:"The stars made the ingredients", kicker:"STARS · ELEMENTS · WORLDS", copy:"Inside stars, simple elements were transformed into the ingredients of planets and living things. When stars died, they scattered those elements into space. Later, around new stars, worlds began to gather." },
-  { n:"04", title:"One world became alive", kicker:"THE LONG EXPERIMENT", copy:"On a small planet orbiting an ordinary star, chemistry became biology. Life changed, adapted, and diversified. Eventually, some organisms developed nervous systems: living networks that could sense, learn, remember, and dream." },
-  { n:"05", title:"Matter learned to wonder", kicker:"BRAINS · QUESTIONS · IDEAS", copy:"After billions of years, matter had become capable of asking where it came from. A brain could build models of the universe, imagine things that did not yet exist, and wonder about the strange experience of being alive." },
-  { n:"06", title:"A girl named Angelic", kicker:"THE VISION", copy:"And somewhere on that small blue world, a girl named Angelic looked at all these questions and decided she wanted to follow them. She wanted to understand brains, build with code, explore intelligence, and make difficult ideas feel alive. This is her little corner of the universe. Her research world. Her vision, still unfolding." }
-];
 const projects = [
   { tag:"NEURAL MODELLING", title:"EM-NAV", subtitle:"Representation geometry & navigation", jargon:"Investigating how spiking neural networks can represent spatial information, and how the geometry of those representations relates to navigation.", plain:"Imagine a brain building an internal map of space. This project explores how networks of artificial neurons might create and use those maps.", status:"COMPLETED WORK", color:"violet", href:"https://github.com/visionbyangelic/em-nav-representation-geometry" },
   { tag:"COMPUTATIONAL NEUROSCIENCE", title:"Connectome to Behaviour", subtitle:"From neural circuits to movement", jargon:"A multi-scale exploration connecting connectome-informed neural simulation with embodied behaviour using Brian2, FlyWire, MuJoCo and NeuroMechFly.", plain:"What if we could start with a map of neurons and ask what kind of movement that network could produce? This project explores the bridge between brain wiring and behaviour.", status:"EXPLORATION", color:"cyan", href:"https://github.com/visionbyangelic/ConnectomeToBehaviour" },
@@ -196,7 +188,7 @@ function App() {
   };
   useEffect(()=>{ setEnergy(.35 + chapter*.2); if(chapter===5) setEntered(true); },[chapter]);
   useEffect(()=>{
-    const timer = window.setInterval(()=>setChapter(current=>Math.min(current+1,5)), 7600);
+    const timer = window.setInterval(()=>setChapter(current=>Math.min(current+1,5)), 5000);
     return ()=>window.clearInterval(timer);
   },[]);
   useEffect(()=>()=>{ void audio.current?.close(); },[]);
@@ -213,34 +205,10 @@ function App() {
       <div className="top-actions"><button className={"sound-toggle "+(sound?"active":"")} onClick={()=>{setSound(!sound); if(!sound) playTone(220,.3);}} aria-label="Toggle ambient sound"><span className="sound-bars"><i/><i/><i/><i/></span><span>{sound?"SOUND ON":"SOUND OFF"}</span></button><button className="menu-toggle" onClick={()=>setMenu(!menu)} aria-label="Toggle menu">☰</button></div>
     </header>
     <main id="top">
-      <section className={"genesis "+(chapter>=0?"story-mode":"")} aria-label="The Genesis cinematic introduction">
+      <section className="genesis cinematic-intro" aria-label="Cinematic animated introduction">
         <div className="genesis-orbit orbit-one"/><div className="genesis-orbit orbit-two"/>
-        <div className="chapter-copy" key={chapter}>
-          <p className="eyebrow"><span className="pulse-dot"/> CHAPTER {chapters[chapter].n} / {chapters[chapter].kicker}</p>
-          <h2>{chapters[chapter].title}<span>.</span></h2><p>{chapters[chapter].copy}</p>
-          {chapter===5 && <div className="storybook-angelic" aria-label="An animated storybook illustration of Angelic">
-            <svg viewBox="0 0 180 210" role="img" aria-hidden="true">
-              <ellipse cx="91" cy="194" rx="42" ry="7" fill="#9f83ef" opacity=".18"/>
-              <path d="M55 90 Q43 32 91 28 Q140 30 127 93 L120 135 L60 135Z" fill="#21152d"/>
-              <ellipse cx="94" cy="83" rx="29" ry="34" fill="#b97859"/>
-              <path d="M65 79 Q63 43 94 39 Q127 42 125 79 Q111 61 96 58 Q82 74 65 79Z" fill="#24162f"/>
-              <path d="M76 86 Q82 81 87 86 M101 86 Q107 81 113 86" fill="none" stroke="#39202b" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M91 91 Q95 95 98 91" fill="none" stroke="#754238" strokeWidth="1.5" strokeLinecap="round"/>
-              <path d="M85 104 Q95 111 105 103" fill="none" stroke="#7a3445" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M69 121 Q94 111 119 123 L135 183 L53 183Z" fill="#9b83e8"/>
-              <path d="M70 127 Q49 137 42 163" fill="none" stroke="#b97859" strokeWidth="11" strokeLinecap="round"/>
-              <path className="angelic-wave" d="M118 128 Q142 105 145 77" fill="none" stroke="#b97859" strokeWidth="11" strokeLinecap="round"/>
-              <circle cx="147" cy="72" r="7" fill="#b97859"/>
-              <path d="M68 183 L65 197 M119 183 L123 197" stroke="#b97859" strokeWidth="9" strokeLinecap="round"/>
-              <path d="M62 198 L48 201 M119 198 L135 201" stroke="#ddd1ff" strokeWidth="6" strokeLinecap="round"/>
-              <circle cx="147" cy="54" r="3" fill="#d7c6ff"/><path d="M147 39 L147 32 M159 54 L166 54 M135 54 L128 54" stroke="#d7c6ff" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-            <span>ANGELIC · THE BEGINNING OF A VISION</span>
-          </div>}
-          <div className="chapter-controls"><div className="chapter-progress">{chapters.map((c,i)=><button key={c.n} aria-label={"Go to chapter "+c.n} className={i<=chapter?"filled":""} onClick={()=>{setChapter(i);if(i===5)setEntered(true)}}/>)}</div><button className="text-cta" onClick={()=>chapter===5?document.getElementById("atlas")?.scrollIntoView({behavior:"smooth"}):next()}>{chapter===5?"ENTER ANGELIC RESEARCH WORLD":"CONTINUE THE JOURNEY"} <span>↗</span></button></div>
-        </div>
-        <div className="scene-caption"><span>FIG. 001</span><span>FROM THE BIG BANG TO THE HUMAN MIND</span><span>0{Math.max(1,chapter+1)} / 06</span></div>
-        <div className="vertical-note">13.8 BILLION YEARS · ONE CONTINUOUS STORY</div>
+        <div className="visual-progress" aria-hidden="true"><span style={{transform:"scaleX("+(chapter+1)/6+")"}}/></div>
+        <button className="intro-enter" onClick={()=>document.getElementById("atlas")?.scrollIntoView({behavior:"smooth"})} aria-label="Enter portfolio" title="Enter portfolio">↓</button>
       </section>
       <section className="manifesto section-pad" id="atlas">
         <div className="section-index">01 / THE ATLAS</div><div className="manifesto-grid"><div><p className="eyebrow">A PERSONAL RESEARCH WORLD</p><h2>Not one answer.<br/><em>A thousand ways in.</em></h2></div><div className="manifesto-text"><p className="large-copy">I am Angelic Charles, a <strong>computational neuroscientist</strong> exploring the space between biological intelligence, computation and the ideas that shape how we understand the mind.</p><p>This atlas is a living map of my work and curiosity. It moves across research, machine learning, brain imaging, neural systems, science communication and the questions I haven't learned how to ask yet.</p><a className="underlink" href="#research">EXPLORE THE RESEARCH <span>↗</span></a></div></div>
