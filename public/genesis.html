@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Genesis | Angelic Research World</title>
+<meta name="description" content="Explore the research, computational projects, scientific interests and writing of Angelic Charles, a computational neuroscientist interested in brain science, machine learning, data and the questions surrounding the mind.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Angelic Charles","jobTitle":"Computational Neuroscientist","sameAs":["https://github.com/visionbyangelic","https://linkedin.com/in/angeliccharles","https://orcid.org/0009-0008-7279-9663","https://researchasstories.substack.com"]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#02030a;--ink:#e6ecff;--mut:rgba(200,212,240,.6);--a:#8faeff;--b:#b48fff;--c:#52d98f;--p:#ea408d;--line:rgba(160,180,255,.16);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:inherit;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',ui-monospace,monospace;overflow:hidden}
+canvas{position:fixed;inset:0;display:block}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+#cap{position:fixed;left:0;right:0;top:44%;text-align:center;font:italic 400 clamp(20px,3.4vw,34px)/1.3 'Cormorant Garamond',Georgia,serif;letter-spacing:.02em;opacity:0;transition:opacity 1.4s;padding:0 24px;pointer-events:none}
+#cap.v{opacity:.9}
+#title{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 26px);text-align:center;opacity:0;transition:opacity 2s;pointer-events:none;padding:0 16px}
+#title.on{opacity:1}
+#title h1{font:600 clamp(26px,5vw,48px)/1.1 'Cormorant Garamond',Georgia,serif;letter-spacing:.32em;text-indent:.32em}
+#title p{font-size:10px;letter-spacing:.22em;color:var(--a);margin-top:8px;text-transform:uppercase}
+#title small{display:block;font-size:11px;color:var(--mut);margin-top:6px;letter-spacing:.04em}
+#hubs{opacity:0;transition:opacity 2s}
+#hubs.on{opacity:1}
+#hubs button{position:fixed;left:0;top:0;background:none;border:0;color:var(--ink);font:500 11px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:12px 10px 12px 26px;white-space:nowrap;will-change:transform}
+#hubs button::before{content:'';position:absolute;left:4px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;border:1px solid var(--a);box-shadow:0 0 14px var(--a),inset 0 0 8px var(--a);animation:pl 2.4s ease-in-out infinite}
+#hubs button i{display:block;font-style:normal;font-size:9px;color:var(--p);letter-spacing:.2em}
+#hubs button:hover::before,#hubs button:focus-visible::before{background:var(--a)}
+@keyframes pl{50%{transform:scale(1.5);opacity:.5}}
+#ui{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:10px;color:var(--mut);letter-spacing:.12em}
+#ui button,#panel button.x,#sw{background:rgba(143,174,255,.06);border:1px solid var(--line);color:var(--ink);font:500 10px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;border-radius:20px;cursor:pointer}
+#panel{position:fixed;top:0;right:0;bottom:0;width:min(470px,100vw);background:rgba(3,5,14,.84);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .7s cubic-bezier(.2,.8,.2,1);overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 18px) 22px 90px;z-index:5}
+#panel.open{transform:none}
+#panel .bar{display:flex;gap:8px;justify-content:space-between;margin-bottom:22px}
+#panel h2{font:600 clamp(30px,6vw,42px)/1.1 'Cormorant Garamond',Georgia,serif}
+#panel .k{color:var(--p);font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin:6px 0 16px}
+#panel p,#panel li{font-size:12.5px;line-height:1.75;color:var(--mut);margin-bottom:10px}
+#panel li{margin-left:16px}
+#panel a{color:var(--a)}
+.card{border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;background:rgba(143,174,255,.03)}
+.card h3{font:600 22px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--ink)}
+.st{display:inline-block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:2px 8px;border-radius:20px;border:1px solid var(--c);color:var(--c);margin:8px 0}
+.st.o{border-color:var(--a);color:var(--a)}.st.p{border-color:var(--b);color:var(--b)}
+.q{color:var(--ink)!important;font-style:italic}
+.l{color:#cfe9da!important}
+body:not(.plain) .l,body.plain .t{display:none}
+.mode{font-size:9px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;display:block;margin-bottom:2px}
+.l .mode{color:var(--c)}
+#lc{width:100%;height:120px;background:#04060b;border:1px solid var(--line);border-radius:8px}
+input[type=range]{width:100%;accent-color:var(--a);margin:4px 0 12px}
+.sr{position:absolute;left:-9999px}
+body.nogl #hubs{opacity:1}
+body.nogl #hubs button{position:static;display:block;margin:14px auto}
+body.nogl #hubs{position:fixed;inset:150px 0 0;overflow:auto}
+@media(max-width:700px){#panel{top:auto;width:100%;height:76vh;border-left:0;border-top:1px solid var(--line);transform:translateY(102%);border-radius:18px 18px 0 0}#panel.open{transform:none}#ui span{display:none}}
+@media(prefers-reduced-motion:reduce){#hubs button::before{animation:none}}
+#gate{position:fixed;inset:0;z-index:10;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;transition:opacity 1.2s}#gate.gone{opacity:0;pointer-events:none}#gate h1{font:600 clamp(28px,6vw,52px) 'Cormorant Garamond',Georgia,serif;letter-spacing:.3em;text-indent:.3em}#gate p{font-size:10px;letter-spacing:.2em;color:var(--a);text-transform:uppercase}#gate button{background:none;border:1px solid var(--a);color:var(--ink);font:500 12px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;padding:14px 26px;border-radius:30px;cursor:pointer;box-shadow:0 0 24px rgba(143,174,255,.3);margin-top:18px}#gate .s{border-color:var(--line);box-shadow:none;font-size:10px;padding:8px 16px;color:var(--mut);margin-top:0}#gate small{font-size:10px;color:var(--mut);letter-spacing:.1em}
+#flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:3}#brand{text-align:left;line-height:1.5}#brand b{display:block;font:600 18px 'Cormorant Garamond',Georgia,serif;color:var(--ink);letter-spacing:.06em}#brand span{display:block!important;font-size:9px}#ui{align-items:flex-end}
+#hubs button::before{border-color:var(--hc,var(--a));box-shadow:0 0 14px var(--hc,var(--a)),inset 0 0 8px var(--hc,var(--a))}#hubs button i{color:var(--hc,var(--p))}
+/* The intro is a standalone cinematic sequence; no portfolio UI appears here. */
+#cap,#title,#hubs,#ui,#panel{display:none!important}
+#gate{background:radial-gradient(ellipse at 50% 50%,#11132a 0%,#02030a 68%)}
+#gate h1{letter-spacing:.24em;text-shadow:0 0 35px rgba(143,174,255,.32)}
+#gate button{transition:background .3s,transform .3s}#gate button:hover{background:rgba(143,174,255,.12);transform:translateY(-2px)}
+</style></head>
+<body>
+<div id="cap" aria-live="polite"></div><div id="flash"></div>
+<div id="gate"><h1>NEURAL ATLAS</h1><p>The portfolio of Angelic Charles · Computational Neuroscientist</p><button id="go">Enter with sound</button><button class="s" id="go2">Enter silently</button><small>Headphones recommended</small></div>
+<header id="title"><h1>NEURAL ATLAS</h1><p>Angelic Charles · Computational Neuroscientist</p><small>A universe of questions, connections and computational experiments.</small></header>
+<nav id="hubs" aria-label="Environments"></nav>
+<div id="ui"><div id="brand"><b>Angelic Charles</b><span>Computational Neuroscientist · Nigeria<br>visionbyangelic@gmail.com</span></div><div><button id="ct">Contact</button> <button id="snd" aria-pressed="false">Sound: off</button></div></div>
+<aside id="panel" aria-live="polite"></aside>
+
+<main class="sr">
+<article id="p0" data-n="01" data-t="Origin" data-s="The person behind the research"><p class="k">This site belongs to Angelic Charles</p><p>Computational neuroscience researcher, science communicator and mentor. Reach me at <a href="mailto:visionbyangelic@gmail.com">visionbyangelic@gmail.com</a>, or tap Contact.</p>
+<p>I’m Angelic Charles, a computational neuroscience researcher at the African Neuro-Data Research Lab, working on brain aging. I build models of how brains and machines learn, and I write about the science so more people can step inside it.</p>
+<ul><li>MRI/fMRI Fellow, African Brain Data Network</li><li>Neuromatch Ambassador, Communications & Outreach</li><li>Virtual Coordinator, Women in Neuroscience Nigeria</li><li>Data Science Mentor at DataraFlow, and valedictorian of its Class of 2025</li></ul>
+<p>I bring a dual foundation in biochemistry and software engineering to neural computation, moving between biological constraints and scalable machine learning. Currently preparing for an MSc in Computational Neuroscience.</p><p class="k">Research focus</p><ul><li>Spiking neural networks and neuromorphic models</li><li>The geometry of spatial navigation (grid and place cells)</li><li>EEG/fMRI signal processing and brain-aging trajectories</li><li>Robust multimodal perception when sensors fail</li></ul><p>Also: SPARK-CAMIRA medical imaging AI fellow (CAMERA MRI Africa) and Neuromatch Academy alumna. Oral presentation accepted at NSN for the brain-aging work.</p><p>Based in Nigeria. This atlas follows the questions, not a single speciality.</p></article>
+
+<article id="p1" data-n="02" data-t="Research Worlds" data-s="The work · toggle technical ↔ plain at the top">
+<section class="card"><h3>Connectome-to-Behavior</h3><span class="st o">Ongoing</span>
+<p class="q">Can natural coordinated behaviors emerge organically when real synaptic wiring is given simple biophysical rules and placed in an embodied physical simulation?</p>
+<p class="t"><span class="mode">Technical</span>Closed-loop simulation coupling complete Drosophila connectomes (FlyWire, BANC) with Brian2 point-neuron dynamics and an embodied biomechanical body (MuJoCo, flygym) to evaluate emergent locomotion, grooming, and feeding without hand-coded motor rules.</p>
+<p class="l"><span class="mode">Plain language</span>Take the full wiring diagram of a fruit fly’s brain, switch it on inside a computer, give it a virtual body, and see whether it walks, cleans itself and feeds, without anyone programming those moves. No findings yet.</p>
+<p><a href="https://github.com/visionbyangelic/ConnectomeToBehaviour">Code ↗</a></p></section>
+
+<section class="card"><h3>EM-NAV</h3><span class="st">Completed</span>
+<p class="q">How do biological constraints shape the maps an artificial navigator builds?</p>
+<p class="t"><span class="mode">Technical</span>Computational study examining how biological constraints (spiking thresholds, metabolic sparsity penalties, and recurrence) shape internal spatial representations, place-cell-like geometry, and zero-shot transfer stability in embodied agents under severe sensory ambiguity. Key Finding: Constrained spiking networks produced place-cell-like coding with up to ~80x higher spatial information per spike than unconstrained baselines and demonstrated superior transferability into continuous 3D environments.</p>
+<p class="l"><span class="mode">Plain language</span>Give a virtual explorer a brain that must save energy and only fire when it counts, like a real one. Its inner “map” starts to look like the place cells in real brains, and it copes better when dropped somewhere new.</p>
+<p><a href="https://github.com/visionbyangelic/em-nav-representation-geometry">Code ↗</a></p></section>
+
+<section class="card"><h3>Brain Aging Dynamics</h3><span class="st">Accepted · Oral, NSN 2026</span>
+<p class="t"><span class="mode">Technical</span>Structural MRI morphometrics across OpenBHB and OASIS-3 cohorts. Accepted for Oral Presentation at NSN 2026.</p>
+<p class="l"><span class="mode">Plain language</span>Teach a computer what a healthy brain looks like at each age from MRI scans. Then show it someone new: if their brain looks older than their birthday says, that gap may be a clue to health.</p>
+<p><a href="https://github.com/visionbyangelic/brain-aging">Code ↗</a></p></section>
+
+<section class="card"><h3>Neuro-Fatigue Predictor</h3><span class="st">Built</span>
+<p class="t"><span class="mode">Technical</span>1D-CNN cognitive fatigue detection from raw EEG time series targeting Frontal Theta biomarkers.</p>
+<p class="l"><span class="mode">Plain language</span>A $200 headband listens to brain waves, and a neural network learns the pattern of a tiring mind, flagging fatigue before you consciously feel it.</p>
+<p><a href="https://github.com/visionbyangelic/Neuro-Fatigue-Prediction">Code ↗</a></p></section>
+<section class="card"><h3>Emotiwave</h3><span class="st">Preprint</span>
+<p class="t"><span class="mode">Technical</span>Cross-modal attention and robust fusion under sensor perturbation. Preprint on Figshare.</p>
+<p class="l"><span class="mode">Plain language</span>How well can an AI read emotion from video if the audio or the camera cuts out? Like judging a mood with your eyes closed, or your ears covered.</p>
+<p><a href="https://github.com/visionbyangelic/Multimodal-Emotion-Recognition">Code ↗</a></p></section>
+<section class="card"><h3>OralSight V1</h3><span class="st">Built</span>
+<p class="t"><span class="mode">Technical</span>AI oral lesion screening pipeline with MobileNetV2 and Grad-CAM interpretability.</p>
+<p class="l"><span class="mode">Plain language</span>An AI that looks at photos of mouth lesions and sorts them, and highlights where it looked, so a clinician can see why.</p>
+<p><a href="https://github.com/visionbyangelic/Oral-Sight-V1">Code ↗</a></p></section>
+<section class="card"><h3>Nigerian Job Market Analyser</h3><span class="st">Built</span>
+<p class="t"><span class="mode">Technical</span>A multi-agent AI system over the LinkedIn Job Postings dataset, surfacing in-demand skills and top-paying roles, with a chat interface.</p>
+<p class="l"><span class="mode">Plain language</span>A team of AI helpers reads thousands of job ads and tells you which skills to learn next. You can ask it questions.</p>
+<p><a href="https://github.com/visionbyangelic/nigerian-job-market-analyser">Code ↗</a></p></section>
+<section class="card"><h3>Model-based control & the brain</h3><span class="st p">Proposed</span>
+<p class="t"><span class="mode">Technical</span>Analysis plan relating structural and task-fMRI predictors to model-based control, using the OpenNeuro ds007474 two-step dataset.</p>
+<p class="l"><span class="mode">Plain language</span>Some people plan ahead; others run on habit. Do their brains look or work differently? A plan only, no results.</p></section></article>
+
+<article id="p2" data-n="03" data-t="The Playground" data-s="Touch the model, watch it change">
+<p class="t"><span class="mode">Technical</span>Leaky integrate-and-fire neuron: membrane potential integrates input current through resistance R<sub>m</sub> and leaks toward rest; crossing −50 mV emits a spike and resets.</p>
+<p class="l"><span class="mode">Plain language</span>A neuron is a bucket with a small hole. Input fills it, the hole leaks it, and when it overflows the cell shouts once and empties.</p>
+<canvas id="lc" width="440" height="120"></canvas>
+<label>Input current <input id="li" type="range" min="0" max="4" step=".1" value="2.2"></label>
+<label>Resistance (how sensitive) <input id="lr" type="range" min="2" max="12" step=".1" value="6"></label>
+<p>More demonstrations will be added here as the projects mature.</p></article>
+
+<article id="p3" data-n="04" data-t="Thought Archive" data-s="The mind">
+<p>Essays, philosophy and unfinished ideas live on my personal Substack, separate from Research as Stories. Longer pieces on Medium include:</p><ul><li>Are You Really One Person? What Split-Brain Research Reveals About the “Two Selves” Question</li><li>When Your Hand Rebels: The Neuroanatomy and Philosophy of Alien Hand Syndrome</li><li>Decoding the Unconscious: How I Built a Deep Learning System to Predict Burnout</li><li>One Life is Not Enough: A Manifestation of My “Too Many” Selves</li></ul><p><a href="https://medium.com/@visionbyangelic">Medium ↗</a></p>
+<p><a href="https://visionbyangelic.substack.com">visionbyangelic.substack.com ↗</a></p></article>
+
+<article id="p4" data-n="05" data-t="Research as Stories" data-s="The communication">
+<p>Translating complex computational neuroscience papers into accessible narratives.</p>
+<p><a href="https://researchasstories.substack.com">researchasstories.substack.com ↗</a></p></article>
+
+<article id="p5" data-n="06" data-t="The Connection" data-s="Collaborations, communities, contact"><p>This site belongs to Angelic Charles. Get in touch for research collaboration, mentoring, speaking and science writing. Email is fastest.</p>
+<ul><li><a href="mailto:visionbyangelic@gmail.com">visionbyangelic@gmail.com</a></li><li><a href="https://calendar.app.google/nw4xpP43AfzA9t7v5">Book a call ↗</a></li><li><a href="https://linkedin.com/in/angeliccharles">LinkedIn ↗</a></li><li><a href="https://github.com/visionbyangelic">GitHub ↗</a></li><li><a href="https://orcid.org/0009-0008-7279-9663">ORCID ↗</a></li><li><a href="https://twitter.com/visionbyangelic">X / Twitter ↗</a></li><li><a href="https://kaggle.com/nerdyalgorithm">Kaggle ↗</a></li><li><a href="https://nerdyalgorithm.hashnode.dev">Hashnode ↗</a></li><li><a href="https://medium.com/@visionbyangelic">Medium ↗</a></li><li><a href="https://t.me/neuroscienceresources">Neuroscience Resources (Telegram) ↗</a></li></ul></article>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const arts=[...document.querySelectorAll('main article')],hubsEl=$('#hubs'),panel=$('#panel');
+let started=false,master,t=RM?30:0,sel=-1,snd=false,ac,raf,mx=0,my=0,R;
+try{R=new THREE.WebGLRenderer({antialias:true})}catch(e){document.body.classList.add('nogl')}
+const btns=arts.map((a,j)=>{const b=document.createElement('button');b.innerHTML='<i>'+a.dataset.n+'</i>'+a.dataset.t;b.onclick=()=>open(j);b.style.setProperty('--hc',['#8faeff','#b48fff','#52d98f','#f5935a','#ea408d','#3ecfcf'][j]);hubsEl.appendChild(b);return b});
+function ping(f,d=.9){if(!snd||!ac)return;const o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.value=f;o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.001,ac.currentTime);g.gain.exponentialRampToValueAtTime(.1,ac.currentTime+.02);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.start();o.stop(ac.currentTime+d+.05)}
+$('#snd').onclick=e=>{snd=!snd;if(snd&&!ac){ac=new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=55;g.gain.value=.035;o.connect(g);g.connect(ac.destination);o.start()}if(ac)ac[snd?'resume':'suspend']();e.target.textContent='Sound: '+(snd?'on':'off');e.target.setAttribute('aria-pressed',snd);ping(523)};
+function open(j){sel=j;const a=arts[j];panel.innerHTML='<div class="bar"><button id="sw">Technical ⇄ Plain</button><button class="x">Close ✕</button></div><h2>'+a.dataset.t+'</h2><p class="k">'+a.dataset.s+'</p>'+a.innerHTML;panel.classList.add('open');panel.scrollTop=0;panel.querySelector('.x').onclick=close;$('#sw').onclick=()=>document.body.classList.toggle('plain');ping([392,440,523,587,659,784][j]);cancelAnimationFrame(raf);if(j===2)lif()}
+function close(){sel=-1;panel.classList.remove('open');cancelAnimationFrame(raf)}
+addEventListener('keydown',e=>e.key==='Escape'&&close());
+function lif(){const c=panel.querySelector('#lc'),x=c.getContext('2d'),I=panel.querySelector('#li'),Rm=panel.querySelector('#lr');let v=-70,ref=0,d=[];(function s(){for(let k=0;k<3;k++){if(ref>0){ref--;v=-75}else{v+=(-(v+70)+(+Rm.value)*(+I.value)+(Math.random()-.5)*5)/15*.55;if(v>=-50){v=30;ref=7;ping(660,.3)}}d.push(v);if(d.length>220)d.shift()}
+x.clearRect(0,0,440,120);const Y=q=>120-12-(q+85)/120*96;x.setLineDash([4,4]);x.strokeStyle='#ea408d';x.beginPath();x.moveTo(0,Y(-50));x.lineTo(440,Y(-50));x.stroke();x.setLineDash([]);x.strokeStyle='#8faeff';x.lineWidth=2;x.beginPath();d.forEach((q,i)=>i?x.lineTo(i*2,Y(q)):x.moveTo(0,Y(q)));x.stroke();raf=requestAnimationFrame(s)})()}
+
+const cap=$('#cap'),lines=[[6.8,'In the beginning, there was only silence.'],[9.2,'Then — one signal.'],[11.6,'It found something to connect to.'],[14.6,'']];let li=-1;
+function reveal(){window.location.replace('/portfolio')}
+if(!R||RM){setTimeout(()=>window.location.replace('/portfolio'),4200)}
+
+if(R){
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.setSize(innerWidth,innerHeight);document.body.prepend(R.domElement);
+const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,500);
+const V=()=>new THREE.Vector3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize();
+const P=[new THREE.Vector3()],par=[0],dep=[0];let tips=[];for(let i=0;i<5;i++)tips.push({i:0,d:V()});
+for(let k=1;k<=70;k++){const nt=[];for(const q of tips){const p=P[q.i].clone().addScaledVector(q.d,.55);q.d.add(V().multiplyScalar(.45)).normalize();P.push(p);par.push(q.i);dep.push(k);q.i=P.length-1;if(k>25&&Math.random()<.015)continue;nt.push(q);if(Math.random()<.09&&tips.length+nt.length<50)nt.push({i:q.i,d:q.d.clone().add(V().multiplyScalar(.9)).normalize()})}tips=nt}
+const N=P.length,T0=7.6,bt=i=>T0+dep[i]*.1,U={uTime:{value:0}};
+const lp=[],lf=[],lb=[],pp=[],pb=[],ps=[];
+for(let i=1;i<N;i++){const a=P[par[i]],b=P[i];lp.push(a.x,a.y,a.z,b.x,b.y,b.z);lf.push(a.x,a.y,a.z,a.x,a.y,a.z);lb.push(bt(i),bt(i))}
+for(let i=0;i<N;i++){pp.push(P[i].x,P[i].y,P[i].z);pb.push(bt(i));ps.push(i?.35:3)}
+const F=(a,n)=>new THREE.Float32BufferAttribute(a,n),mat=(v,f)=>new THREE.ShaderMaterial({uniforms:U,vertexShader:v,fragmentShader:f,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false});
+const lg=new THREE.BufferGeometry();lg.setAttribute('position',F(lp,3));lg.setAttribute('aFrom',F(lf,3));lg.setAttribute('aBirth',F(lb,1));
+S.add(new THREE.LineSegments(lg,mat('attribute vec3 aFrom;attribute float aBirth;uniform float uTime;varying float vA;varying float vB;void main(){vB=aBirth;float a=uTime-aBirth;float pr=clamp(a/.5,0.,1.);vec3 p=mix(aFrom,position,pr);vA=step(0.,a)*(.28+1.3*exp(-max(a,0.)*.9))*(.7+.3*sin(uTime*2.2-aBirth*5.));gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}','varying float vA;varying float vB;void main(){vec3 c=.55+.45*cos(6.28*(vB*.045+vec3(.55,.68,.82)));gl_FragColor=vec4(c*vA,1.);}')));
+const ptV='attribute float aBirth;attribute float aS;uniform float uTime;varying float vA;void main(){float a=uTime-aBirth;float g=clamp(a*3.,0.,1.);vA=g;vec4 m=modelViewMatrix*vec4(position,1.);gl_PointSize=aS*g*(1.+2.*exp(-max(a,0.)*1.2)+.25*sin(uTime*2.+aBirth*9.))*(320./-m.z);gl_Position=projectionMatrix*m;}',
+ptF='varying float vA;void main(){float d=length(gl_PointCoord-.5);float s=smoothstep(.5,0.,d);gl_FragColor=vec4(vec3(.7,.8,1.)*s*s*vA,1.);}';
+const pg=new THREE.BufferGeometry();pg.setAttribute('position',F(pp,3));pg.setAttribute('aBirth',F(pb,1));pg.setAttribute('aS',F(ps,1));S.add(new THREE.Points(pg,mat(ptV,ptF)));
+const cand=[];for(let i=0;i<N;i++)if(dep[i]>=38)cand.push(i);
+const H=[cand[Math.floor(Math.random()*cand.length)]];while(H.length<6){let b=-1,bd=-1;for(const c of cand){const m=Math.min(...H.map(h=>P[h].distanceTo(P[c])));if(m>bd){bd=m;b=c}}H.push(b)}
+const hp=[],hb=[],hs=[];H.forEach((h,j)=>{hp.push(P[h].x,P[h].y,P[h].z);hb.push(T0+7.4+j*.25);hs.push(3.6)});
+const hg=new THREE.BufferGeometry();hg.setAttribute('position',F(hp,3));hg.setAttribute('aBirth',F(hb,1));hg.setAttribute('aS',F(hs,1));
+const HC=['#8faeff','#b48fff','#52d98f','#f5935a','#ea408d','#3ecfcf'].map(c=>new THREE.Color(c)),hc=[];HC.forEach(c=>hc.push(c.r,c.g,c.b));hg.setAttribute('aC',F(hc,3));
+const hv=ptV.replace('varying float vA;','varying float vA;attribute vec3 aC;varying vec3 vC;').replace('vA=g;','vA=g;vC=aC;');
+S.add(new THREE.Points(hg,mat(hv,'varying float vA;varying vec3 vC;void main(){float d=length(gl_PointCoord-.5);float s=smoothstep(.5,0.,d);gl_FragColor=vec4(vC*s*vA*.9,1.);}')));
+const sp=[];for(let i=0;i<1600;i++){const v=V().multiplyScalar(160+Math.random()*120);sp.push(v.x,v.y,v.z)}
+const sg=new THREE.BufferGeometry();sg.setAttribute('position',F(sp,3));S.add(new THREE.Points(sg,new THREE.PointsMaterial({size:.8,color:0x8faeff,transparent:true,opacity:.45,blending:THREE.AdditiveBlending,depthWrite:false})));
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+addEventListener('resize',()=>{R.setSize(innerWidth,innerHeight);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix()});
+const nb=new THREE.Mesh(new THREE.SphereGeometry(300,32,16),new THREE.ShaderMaterial({side:THREE.BackSide,uniforms:U,vertexShader:'varying vec3 vP;void main(){vP=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'uniform float uTime;varying vec3 vP;float h(vec3 p){return fract(sin(dot(p,vec3(12.9,78.2,37.7)))*43758.5);}float n(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(mix(h(i),h(i+vec3(1,0,0)),f.x),mix(h(i+vec3(0,1,0)),h(i+vec3(1,1,0)),f.x),f.y),mix(mix(h(i+vec3(0,0,1)),h(i+vec3(1,0,1)),f.x),mix(h(i+vec3(0,1,1)),h(i+vec3(1,1,1)),f.x),f.y),f.z);}void main(){vec3 p=normalize(vP)*2.5+uTime*.01;float a=n(p)*.6+n(p*2.1)*.3+n(p*4.3)*.1;a=smoothstep(.45,.95,a);vec3 c=mix(vec3(.05,.08,.35),vec3(.5,.1,.4),n(p*1.3+4.));gl_FragColor=vec4(c*a*.6*smoothstep(7.,14.,uTime),1.);}'}));S.add(nb);
+const BN=2600,bd=[],bc=[];for(let i=0;i<BN;i++){const d=V().multiplyScalar(.4+Math.random()*3.2),c=new THREE.Color().setHSL(.55+Math.random()*.25-(Math.random()<.3?.5:0),.9,.62);bd.push(d.x,d.y,d.z);bc.push(c.r,c.g,c.b)}
+const bg=new THREE.BufferGeometry();bg.setAttribute('position',F(new Array(BN*3).fill(0),3));bg.setAttribute('aD',F(bd,3));bg.setAttribute('aC',F(bc,3));
+const bp=new THREE.Points(bg,mat('attribute vec3 aD;attribute vec3 aC;uniform float uTime;varying vec3 vC;varying float vA;void main(){float a=uTime-4.5;vec3 p=aD*(1.-exp(-max(a,0.)*.6))*9.;vC=aC;vA=step(0.,a)*exp(-max(a,0.)*.22);vec4 m=modelViewMatrix*vec4(p,1.);gl_PointSize=(1.2+3.*exp(-max(a,0.)))*(320./-m.z)*.5;gl_Position=projectionMatrix*m;}','varying vec3 vC;varying float vA;void main(){float d=length(gl_PointCoord-.5);float s=smoothstep(.5,0.,d);gl_FragColor=vec4(vC*s*s*vA*1.4,1.);}'));bp.frustumCulled=false;S.add(bp);
+const sg1=new THREE.BufferGeometry();sg1.setAttribute('position',F([0,0,0],3));const sing=new THREE.Points(sg1,mat('uniform float uTime;void main(){vec4 m=modelViewMatrix*vec4(position,1.);gl_PointSize=(.04+uTime*.1+.05*sin(uTime*40.))*(320./-m.z)*step(uTime,4.5);gl_Position=projectionMatrix*m;}','void main(){float d=length(gl_PointCoord-.5);float s=smoothstep(.5,0.,d);gl_FragColor=vec4(vec3(.8,.9,1.)*s*s*1.5,1.);}'));sing.frustumCulled=false;S.add(sing);
+const tx=document.createElement('canvas');tx.width=tx.height=64;const xc=tx.getContext('2d'),gr=xc.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'#fff');gr.addColorStop(.3,'rgba(255,255,255,.5)');gr.addColorStop(1,'rgba(255,255,255,0)');xc.fillStyle=gr;xc.fillRect(0,0,64,64);
+const NP=70,pls=[],pcol=new Float32Array(NP*3),ppos=new Float32Array(NP*3),mk=()=>{let i=cand[Math.floor(Math.random()*cand.length)];const a=[];while(i>0){a.push(i);i=par[i]}a.push(0);a.reverse();return{a,f:0,s:14+Math.random()*16}};
+for(let k=0;k<NP;k++){pls.push(mk());const c=HC[k%6];pcol.set([c.r,c.g,c.b],k*3)}
+const pg2=new THREE.BufferGeometry();pg2.setAttribute('position',new THREE.BufferAttribute(ppos,3));pg2.setAttribute('color',new THREE.BufferAttribute(pcol,3));const pp2=new THREE.Points(pg2,new THREE.PointsMaterial({size:1.6,map:tx,vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));pp2.frustumCulled=false;pp2.visible=false;S.add(pp2);
+function tick(dt){pp2.visible=t>T0+7.5;if(!pp2.visible)return;pls.forEach((p,k)=>{p.f+=p.s*dt;if(p.f>=p.a.length-1){pls[k]=mk();return}const i=Math.floor(p.f),u=p.f-i,A=P[p.a[i]],B=P[p.a[i+1]];ppos[k*3]=A.x+(B.x-A.x)*u;ppos[k*3+1]=A.y+(B.y-A.y)*u;ppos[k*3+2]=A.z+(B.z-A.z)*u});pg2.attributes.position.needsUpdate=true}
+let fl=0;const fe=$('#flash');
+const cam=new THREE.Vector3(0,0,12),look=new THREE.Vector3(),clk=new THREE.Clock();let ang=0;const w=new THREE.Vector3(),lk=new THREE.Vector3();
+(function loop(){const dt=Math.min(clk.getDelta(),.05);if(started)t+=dt;U.uTime.value=t;ang+=dt*.05;
+if(li<lines.length-1&&t>lines[li+1][0]){li++;cap.textContent=lines[li][1];cap.classList.toggle('v',!!lines[li][1])}
+if(t>15.4&&!window.__genesisFinished){window.__genesisFinished=true;reveal()}
+if(sel<0){const r=12+40*Math.min(1,Math.max(0,t-6)/9);w.set(r*Math.sin(ang)+mx*6,7*Math.sin(ang*.7)+my*4,r*Math.cos(ang));lk.set(0,0,0)}
+else{const h=P[H[sel]];w.copy(h).add(h.clone().normalize().multiplyScalar(10)).add(new THREE.Vector3(0,3,0));lk.copy(h)}
+cam.lerp(w,sel<0?.05:.035);look.lerp(lk,.05);C.position.copy(cam);if(t<4.5){const m=.01+t*.035;C.position.x+=(Math.random()-.5)*m;C.position.y+=(Math.random()-.5)*m}C.lookAt(look);tick(dt);if(!fl&&t>4.5){fl=1;fe.style.transition='none';fe.style.opacity=.85;requestAnimationFrame(()=>{fe.style.transition='opacity 2.6s';fe.style.opacity=0})}R.render(S,C);
+if(t>15.4)H.forEach((h,j)=>{const v=P[h].clone().project(C),b=btns[j];const ok=v.z<1;b.style.opacity=ok?1:0;b.style.pointerEvents=ok?'auto':'none';b.style.transform='translate('+((v.x*.5+.5)*innerWidth-14)+'px,'+((-v.y*.5+.5)*innerHeight-18)+'px)'});
+requestAnimationFrame(loop)})();
+}
+</script>
+<script>
+function A(){if(ac)return;ac=new(window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.9;master.connect(ac.destination)}
+function ping(f,d=.9){if(!snd||!ac)return;const o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime;o.type='triangle';o.frequency.value=f;o.connect(g);g.connect(master);g.gain.setValueAtTime(.001,n);g.gain.exponentialRampToValueAtTime(.1,n+.02);g.gain.exponentialRampToValueAtTime(.001,n+d);o.start(n);o.stop(n+d+.05)}
+function score(){const n=ac.currentTime,b=n+4.5,o=ac.createOscillator(),f=ac.createBiquadFilter(),g=ac.createGain();o.type='sawtooth';o.frequency.setValueAtTime(38,n);o.frequency.exponentialRampToValueAtTime(90,b);f.type='lowpass';f.frequency.setValueAtTime(80,n);f.frequency.exponentialRampToValueAtTime(900,b);g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(.16,b-.1);g.gain.exponentialRampToValueAtTime(.0001,b+.7);o.connect(f);f.connect(g);g.connect(master);o.start(n);o.stop(b+.8);
+const s=ac.createOscillator(),sg=ac.createGain();s.frequency.setValueAtTime(110,b);s.frequency.exponentialRampToValueAtTime(28,b+2.5);sg.gain.setValueAtTime(.9,b);sg.gain.exponentialRampToValueAtTime(.001,b+3.5);s.connect(sg);sg.connect(master);s.start(b);s.stop(b+3.6);
+const len=ac.sampleRate*3,buf=ac.createBuffer(1,len,ac.sampleRate),d=buf.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);const ns=ac.createBufferSource(),nf=ac.createBiquadFilter(),ng=ac.createGain();ns.buffer=buf;nf.type='lowpass';nf.frequency.setValueAtTime(5000,b);nf.frequency.exponentialRampToValueAtTime(120,b+2.5);ng.gain.value=.7;ns.connect(nf);nf.connect(ng);ng.connect(master);ns.start(b);
+[110,164.81,220,329.63].forEach((fr,i)=>{const p=ac.createOscillator(),pg=ac.createGain();p.type=i%2?'triangle':'sine';p.frequency.value=fr;pg.gain.setValueAtTime(.0001,b+1);pg.gain.exponentialRampToValueAtTime(.03,b+6+i);p.connect(pg);pg.connect(master);p.start(b+1)});
+for(let k=0;k<26;k++)setTimeout(()=>ping([392,440,523.25,587.33,659.25,783.99][k%6],.5),(7.6+k*.28)*1000)}
+$('#snd').onclick=e=>{snd=!snd;if(snd&&!ac)A();if(master)master.gain.value=snd?.9:0;e.target.textContent='Sound: '+(snd?'on':'off');e.target.setAttribute('aria-pressed',snd);if(snd)ping(523)};
+$('#ct').onclick=()=>open(5);
+function enter(s){$('#gate').classList.add('gone');started=true;if(s){A();ac.resume();snd=true;if(!RM)score();$('#snd').textContent='Sound: on';$('#snd').setAttribute('aria-pressed',true)}if(!R)reveal()}
+$('#go').onclick=()=>enter(true);$('#go2').onclick=()=>enter(false);
+</script></body></html>
