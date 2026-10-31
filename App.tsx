@@ -171,7 +171,7 @@ function ProjectArtwork({index}:{index:number}) {
 }
 
 function App() {
-  if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+  if ((window.location.pathname === "/" || window.location.pathname === "/index.html") && window.location.search !== "?portfolio=1") {
     window.location.replace("/genesis.html");
     return null;
   }
