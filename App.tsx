@@ -171,49 +171,13 @@ function ProjectArtwork({index}:{index:number}) {
 }
 
 function App() {
-  if (window.location.pathname === "/" || window.location.pathname === "/index.html") { window.location.replace("/genesis.html"); return null; }
+  if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+    window.location.replace("/genesis.html");
+    return null;
+  }
   const [plain,setPlain] = useState(true);
   const [menu,setMenu] = useState(false);
   return <div className="atlas-shell">
-  const [entered,setEntered] = useState(false);
-  const [energy,setEnergy] = useState(.4);
-  const [sound,setSound] = useState(false);
-  const [plain,setPlain] = useState(true);
-  const [menu,setMenu] = useState(false);
-  const audio = useRef<AudioContext | null>(null);
-  const master = useRef<GainNode | null>(null);
-  const playTone = (freq:number, duration=.5) => {
-    if (!sound) return;
-    try {
-      const Ctx = window.AudioContext || (window as any).webkitAudioContext;
-      if (!audio.current) {
-        audio.current = new Ctx();
-        master.current = audio.current!.createGain();
-        master.current!.gain.value = .035;
-        master.current!.connect(audio.current!.destination);
-      }
-      const ctx = audio.current!;
-      if (ctx.state === "suspended") void ctx.resume();
-      const osc = ctx.createOscillator(); const gain = ctx.createGain();
-      osc.type = "sine"; osc.frequency.setValueAtTime(freq,ctx.currentTime);
-      gain.gain.setValueAtTime(.0001,ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(.16,ctx.currentTime+.08);
-      gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+duration);
-      osc.connect(gain); gain.connect(master.current!); osc.start(); osc.stop(ctx.currentTime+duration+.04);
-    } catch {}
-  };
-  useEffect(()=>{ setEnergy(.35 + chapter*.2); if(chapter===5) setEntered(true); },[chapter]);
-  useEffect(()=>{
-    const timer = window.setInterval(()=>setChapter(current=>Math.min(current+1,5)), 5000);
-    return ()=>window.clearInterval(timer);
-  },[]);
-  useEffect(()=>()=>{ void audio.current?.close(); },[]);
-  const next = () => {
-    const n = Math.min(chapter+1,5); setChapter(n); playTone([82,110,164.8,220,277.2,329.6][n],1.1);
-    if(n===5) setEntered(true);
-  };
-  return <div className="atlas-shell">
-    
     <header className="topbar">
       <a className="brand" href="#top" aria-label="Angelic Research World home"><span className="brand-mark">✳</span><span>ANGELIC CHARLES <small>ANGELIC RESEARCH WORLD / 001</small></span></a>
       <nav className={menu?"nav open":"nav"}><a href="#top" onClick={()=>setMenu(false)}>HOME</a><a href="#research" onClick={()=>setMenu(false)}>RESEARCH</a><a href="#about" onClick={()=>setMenu(false)}>THE HUMAN</a><a href="#signals" onClick={()=>setMenu(false)}>SIGNALS</a></nav>
